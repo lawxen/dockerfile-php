@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-stretch
+FROM php:7.3-fpm-buster
 
 # Install nginx, copy from https://github.com/nginxinc/docker-nginx/blob/a973c221f6cedede4dab3ab36d18240c4d3e3d74/mainline/buster/Dockerfile
 LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
