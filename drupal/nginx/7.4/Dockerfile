@@ -96,5 +96,5 @@ RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
 # Install xdebug
 RUN pecl install xdebug
 
-ADD https://raw.githubusercontent.com/lawxen/dockerfile-php/master/drupal/nginx/7.4/docker-entrypoint /usr/local/bin/docker-entrypoint
+ADD https://raw.githubusercontent.com/lawxen/dockerfile-php/master/drupal/nginx/7.4/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 ENTRYPOINT ["docker-entrypoint"]
