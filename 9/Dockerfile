@@ -1,0 +1,54 @@
+FROM drupal:fpm
+
+################################Custom##########################################
+ENV DRUSH_VERSION 0.6.0
+
+# set timezone
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# install the PHP extensions and other app we need
+RUN apt-get update \
+  && apt-get install -y git vim mariadb-client nginx\
+  && rm -rf /var/lib/apt/lists/* \
+  && docker-php-ext-install bcmath
+
+# php config for drupal
+RUN { \
+  echo 'memory_limit = 4096M'; \
+  echo 'post_max_size = 30M'; \
+  echo 'upload_max_filesize = 30M'; \
+  } > /usr/local/etc/php/conf.d/php.ini
+
+# install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php \
+  && mv composer.phar /usr/local/bin/composer
+
+RUN set -eux; \
+  # Install Drush
+  curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_VERSION/drush.phar" && \
+  chmod +x /usr/local/bin/drush && \
+  # Install Drupal Console
+  curl https://drupalconsole.com/installer -L -o drupal.phar && \
+  mv drupal.phar /usr/local/bin/drupal && \
+  chmod +x /usr/local/bin/drupal
+
+ADD config/default.conf /etc/nginx/conf.d/
+ADD config/drupal9-web.conf /etc/nginx/conf.d/
+ADD config/drupal9.conf /etc/nginx/conf.d/
+
+EXPOSE 80
+EXPOSE 443
+
+# WORKDIR "/var/www"
+# # Install Drupal
+# RUN set -eux; \
+#         rm -rf /var/www/html && \
+#         composer create-project drupal/recommended-project drupal9-download && \
+#         cd drupal9-download && \
+#         composer require drush/drush && \
+#         chown -R www-data:www-data web/sites web/modules web/themes
+
+WORKDIR "/var/www/html"
+ADD start.sh /start.sh
+CMD ["/start.sh"]
