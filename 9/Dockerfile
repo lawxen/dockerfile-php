@@ -51,4 +51,6 @@ EXPOSE 443
 
 WORKDIR "/var/www/html"
 ADD start.sh /start.sh
+RUN set -eux; \
+        chmod 755 /start.sh
 CMD ["/start.sh"]
