@@ -20,6 +20,8 @@ RUN { \
   echo 'upload_max_filesize = 30M'; \
   } > /usr/local/etc/php/conf.d/php.ini
 
+RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf
+
 # install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer
