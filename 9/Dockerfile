@@ -35,6 +35,8 @@ RUN set -eux; \
   mv drupal.phar /usr/local/bin/drupal && \
   chmod +x /usr/local/bin/drupal
 
+ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
+ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 ADD config/default.conf /etc/nginx/conf.d/
 ADD config/drupal9-web.conf /etc/nginx/conf.d/
 ADD config/drupal9.conf /etc/nginx/conf.d/
@@ -46,8 +48,8 @@ EXPOSE 443
 # # Install Drupal
 # RUN set -eux; \
 #         rm -rf /var/www/html && \
-#         composer create-project drupal/recommended-project drupal9-download && \
-#         cd drupal9-download && \
+#         composer create-project drupal/recommended-project drupal-download && \
+#         cd drupal-download && \
 #         composer require drush/drush && \
 #         chown -R www-data:www-data web/sites web/modules web/themes
 
