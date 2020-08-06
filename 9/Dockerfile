@@ -35,11 +35,11 @@ RUN set -eux; \
   mv drupal.phar /usr/local/bin/drupal && \
   chmod +x /usr/local/bin/drupal
 
-COPY config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
-COPY config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-COPY config/default.conf /etc/nginx/conf.d/
-COPY config/drupal9-web.conf /etc/nginx/conf.d/
-COPY config/drupal9.conf /etc/nginx/conf.d/
+ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
+ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+ADD config/default.conf /etc/nginx/conf.d/
+ADD config/drupal-web.conf /etc/nginx/conf.d/
+ADD config/drupal.conf /etc/nginx/conf.d/
 
 EXPOSE 80
 EXPOSE 443
