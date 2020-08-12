@@ -13,3 +13,14 @@ RUN { \
     echo 'xdebug.remote_connect_back=1'; \
     echo 'xdebug.idekey=PHPSTORM'; \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN set -eux; \
+        composer global require drupal/coder && \
+        composer global require dealerdirect/phpcodesniffer-composer-installer
+
+RUN { \
+    echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"'; \
+    echo 'alias drupalcs="phpcs --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
+    echo 'alias drupalcsp="phpcs --standard=DrupalPractice --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
+    echo 'alias drupalcbf="phpcbf --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
+    } >> /root/.bashrc
