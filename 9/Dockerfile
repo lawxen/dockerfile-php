@@ -33,7 +33,8 @@ RUN set -eux; \
   # Install Drupal Console
   curl https://drupalconsole.com/installer -L -o drupal.phar && \
   mv drupal.phar /usr/local/bin/drupal && \
-  chmod +x /usr/local/bin/drupal
+  chmod +x /usr/local/bin/drupal && \
+  rm -rf /etc/nginx/sites-enabled
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
