@@ -31,3 +31,4 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
 # RUN /bin/bash -c "source /root/.bashrc"
 RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass"
+RUN /bin/bash -c "source /root/.bashrc;npm install apidoc -g"
