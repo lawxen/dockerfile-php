@@ -13,6 +13,9 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-install bcmath
 
+# Install redis
+RUN pecl install redis && docker-php-ext-enable redis
+
 # php config for drupal
 RUN { \
   echo 'memory_limit = 4096M'; \
