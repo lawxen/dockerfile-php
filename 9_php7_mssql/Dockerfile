@@ -11,14 +11,6 @@ RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get -y install msodbcsql17
 RUN apt-get -y install unixodbc-dev
 
-# 7.4
-RUN apt-get -y install php-pear php7.4-dev
-RUN update-alternatives --set php /usr/bin/php7.4
-RUN update-alternatives --set phar /usr/bin/phar7.4
-RUN update-alternatives --set phar.phar /usr/bin/phar.phar7.4
-RUN update-alternatives --set phpize /usr/bin/phpize7.4
-RUN update-alternatives --set php-config /usr/bin/php-config7.4
-
 RUN pecl uninstall -r sqlsrv
 RUN pecl uninstall -r pdo_sqlsrv
 RUN pecl -d php_suffix=7.4 install sqlsrv
