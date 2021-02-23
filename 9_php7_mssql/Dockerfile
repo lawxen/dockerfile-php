@@ -44,8 +44,8 @@ RUN set -x \
 RUN ACCEPT_EULA=Y apt-get -y install msodbcsql17
 
 RUN set -x \
-    && sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
-    && locale-gen \
+    # && sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
+    # && locale-gen \
     && pecl config-set php_ini /etc/php/7.4/fpm/php.ini \
     && pecl install sqlsrv \
     && pecl install pdo_sqlsrv \
