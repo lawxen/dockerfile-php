@@ -40,16 +40,7 @@ RUN set -x \
 
 RUN set -x \
     && apt-get update \
-    && ACCEPT_EULA=Y apt-get install msodbcsql17 \
-    # optional: for bcp and sqlcmd
-    && ACCEPT_EULA=Y apt-get install mssql-tools \
-    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile \
-    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
-    && source ~/.bashrc \
-    # optional: for unixODBC development headers
-    && apt-get install unixodbc-dev \
-    # optional: kerberos library for debian-slim distributions
-    && apt-get install libgssapi-krb5-2
+    && ACCEPT_EULA=Y apt-get install msodbcsql17
 
 RUN set -x \
     && sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
