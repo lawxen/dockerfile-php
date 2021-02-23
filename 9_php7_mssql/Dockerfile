@@ -39,8 +39,9 @@ RUN set -x \
 
 
 RUN set -x \
-    && apt-get update \
-    && apt-get install -y msodbcsql17
+    && apt-get update
+
+RUN ACCEPT_EULA=Y apt-get -y install msodbcsql17
 
 RUN set -x \
     && sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
