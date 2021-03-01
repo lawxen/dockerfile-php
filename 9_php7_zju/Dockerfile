@@ -66,7 +66,7 @@ RUN set -x \
 #     && phpenmod -v 7.4 sqlsrv pdo_sqlsrv
 
 
-WORKDIR /application
+# WORKDIR /application
 
 ENV ACCEPT_EULA=Y
 
