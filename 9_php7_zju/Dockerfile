@@ -95,5 +95,5 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 # Install required extensions
-RUN docker-php-ext-install intl mysqli pdo pdo_mysql
-WORKDIR /var/www/html
+RUN docker-php-ext-install intl mysqli pdo
+# WORKDIR /var/www/html
