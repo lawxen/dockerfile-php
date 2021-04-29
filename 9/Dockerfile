@@ -21,7 +21,7 @@ RUN { \
   echo 'memory_limit = 4096M'; \
   echo 'post_max_size = 30M'; \
   echo 'upload_max_filesize = 30M'; \
-  } >> /usr/local/etc/php/conf.d/php.ini
+  } > /usr/local/etc/php/conf.d/php.ini
 
 RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf
 
@@ -51,7 +51,7 @@ RUN apt-get update
 RUN apt-get -y install rsyslog
 RUN { \
   echo 'local0.* /var/log/drupal.log'; \
-  } > /etc/rsyslog.conf
+  } >> /etc/rsyslog.conf
 
 EXPOSE 80
 EXPOSE 443
