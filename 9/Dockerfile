@@ -46,8 +46,7 @@ ADD config/drupal-web.conf /etc/nginx/conf.d/
 ADD config/drupal.conf /etc/nginx/conf.d/
 
 # Install rsyslog.
-RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main
-universe" >> /etc/apt/source.list
+RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
 RUN apt-get update
 RUN apt-get -y install rsyslog
 RUN { \
