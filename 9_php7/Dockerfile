@@ -51,7 +51,7 @@ RUN apt-get update
 RUN apt-get -y install rsyslog
 RUN { \
   echo 'local0.* /var/log/drupal.log'; \
-  } > /etc/rsyslog.conf
+  } >> /etc/rsyslog.conf
 
 EXPOSE 80
 EXPOSE 443
