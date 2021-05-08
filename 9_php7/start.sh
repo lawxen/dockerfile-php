@@ -1,6 +1,7 @@
  #!/bin/sh
 service nginx start
 php-fpm
+service rsyslog start
 
 HTMLDIR=/var/www/html
 if [ "`ls -A ${HTMLDIR}`" = "" ]; then
