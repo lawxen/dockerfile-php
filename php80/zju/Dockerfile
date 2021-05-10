@@ -38,7 +38,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
 # RUN docker-php-ext-install intl mysqli pdo
 # # WORKDIR /var/www/html
 
-ADD start.sh /start.sh
-RUN set -eux; \
-        chmod 755 /start.sh
-CMD ["/start.sh"]
+# ADD start.sh /start.sh
+# RUN set -eux; \
+#         chmod 755 /start.sh
+# CMD ["/start.sh"]
