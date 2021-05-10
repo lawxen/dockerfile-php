@@ -30,10 +30,15 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev \
     && pecl install sqlsrv \
     && pecl install pdo_sqlsrv \
-    && echo "extension=pdo_sqlsrv.so" >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini \
-    && echo "extension=sqlsrv.so" >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-sqlsrv.ini \
+    && printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/8.0/mods-available/sqlsrv.ini \
+    && printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/8.0/mods-available/pdo_sqlsrv.ini
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-# Install required extensions
-RUN docker-php-ext-install intl mysqli pdo
-# WORKDIR /var/www/html
+# # Install required extensions
+# RUN docker-php-ext-install intl mysqli pdo
+# # WORKDIR /var/www/html
+
+ADD start.sh /start.sh
+RUN set -eux; \
+        chmod 755 /start.sh
+CMD ["/start.sh"]
