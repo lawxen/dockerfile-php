@@ -1,4 +1,4 @@
-FROM lawxen/drupal:9
+FROM lawxen/drupal:php80
 
 # Install xdebug
 RUN pecl install xdebug && docker-php-ext-enable xdebug
@@ -9,19 +9,20 @@ RUN { \
     echo 'xdebug.client_host=host.docker.internal'; \
     echo 'xdebug.start_with_request=yes'; \
     echo 'xdebug.discover_client_host=yes'; \
+    echo 'xdebug.mode=develop,profile,trace'; \
     echo 'xdebug.idekey=PHPSTORM'; \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-RUN set -eux; \
-        composer global require drupal/coder && \
-        composer global require dealerdirect/phpcodesniffer-composer-installer
+# RUN set -eux; \
+#         composer global require drupal/coder && \
+#         composer global require dealerdirect/phpcodesniffer-composer-installer
 
-RUN { \
-    echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"'; \
-    echo 'alias drupalcs="phpcs --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
-    echo 'alias drupalcsp="phpcs --standard=DrupalPractice --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
-    echo 'alias drupalcbf="phpcbf --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
-    } >> /root/.bashrc
+# RUN { \
+#     echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"'; \
+#     echo 'alias drupalcs="phpcs --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
+#     echo 'alias drupalcsp="phpcs --standard=DrupalPractice --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
+#     echo 'alias drupalcbf="phpcbf --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,css,info,txt,md,yml'"'; \
+#     } >> /root/.bashrc
 
 # Install Nodejs and sass
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
