@@ -1,7 +1,4 @@
-FROM drupal:fpm
-
-################################Custom##########################################
-ENV DRUSH_VERSION 0.9.1
+FROM drupal:7-php7.4-fpm
 
 # set timezone
 ENV TZ=Asia/Shanghai
@@ -9,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install the PHP extensions and other app we need
 RUN apt-get update \
-  && apt-get install -y git vim mariadb-client nginx\
+  && apt-get install -y git wget vim mariadb-client nginx\
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-install bcmath
 
@@ -29,14 +26,14 @@ RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer
 
+# install drush, from http://docs.drush.org/en/8.x/install/
+ENV DRUSH_VERSION 8.4.5
+RUN wget https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar \
+  && chmod +x drush.phar \
+  && mv drush.phar /usr/local/bin/drush \
+  && drush init -y
+
 RUN set -eux; \
-  # Install Drush
-  curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_VERSION/drush.phar" && \
-  chmod +x /usr/local/bin/drush && \
-  # Install Drupal Console
-  curl https://drupalconsole.com/installer -L -o drupal.phar && \
-  mv drupal.phar /usr/local/bin/drupal && \
-  chmod +x /usr/local/bin/drupal && \
   rm -rf /etc/nginx/sites-enabled
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
@@ -55,15 +52,6 @@ RUN { \
 
 EXPOSE 80
 EXPOSE 443
-
-# WORKDIR "/var/www"
-# # Install Drupal
-# RUN set -eux; \
-#         rm -rf /var/www/html && \
-#         composer create-project drupal/recommended-project drupal-download && \
-#         cd drupal-download && \
-#         composer require drush/drush && \
-#         chown -R www-data:www-data web/sites web/modules web/themes
 
 WORKDIR "/var/www/html"
 ADD start.sh /start.sh
