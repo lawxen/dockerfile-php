@@ -8,9 +8,9 @@ RUN { \
     echo 'xdebug.mode=debug'; \
     echo 'xdebug.client_host=host.docker.internal'; \
     echo 'xdebug.start_with_request=yes'; \
-    echo 'xdebug.discover_client_host=yes'; \
-    echo 'xdebug.mode=develop,profile,trace'; \
-    echo 'xdebug.idekey=PHPSTORM'; \
+    echo 'xdebug.discover_client_host=true'; \
+    echo 'xdebug.log = /var/log/xdebug.log'; \
+    # echo 'xdebug.idekey=PHPSTORM'; \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN set -eux; \
@@ -25,7 +25,8 @@ RUN { \
     } >> /root/.bashrc
 
 # Install Nodejs and sass
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+RUN echo '151.101.76.133 raw.githubusercontent.com' >> /etc/hosts && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
 # RUN /bin/bash -c "source /root/.bashrc"
 RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"
