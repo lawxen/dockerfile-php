@@ -13,8 +13,3 @@ docker buildx build --platform linux/amd64,linux/arm64 -t lawxen/drupal:d9-php80
 ```
 docker buildx build --platform linux/amd64,linux/arm64 --no-cache -t lawxen/drupal:d9-php80 --push .
 ```
-
-# Push
-```
-docker push lawxen/drupal:d9-php80
-```
