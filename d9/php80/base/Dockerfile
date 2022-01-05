@@ -1,4 +1,4 @@
-FROM drupal:9-php8.0-fpm
+FROM drupal:9-fpm
 
 ################################Custom##########################################
 ENV DRUSH_VERSION 0.9.1
