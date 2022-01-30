@@ -1,15 +1,12 @@
 FROM drupal:9-php8.0-fpm
 
-################################Custom##########################################
-ENV DRUSH_VERSION 0.9.1
-
 # set timezone
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install the PHP extensions and other app we need
 RUN apt-get update \
-  && apt-get install -y git vim mariadb-client nginx\
+  && apt-get install -y git vim wget mariadb-client nginx \
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-install bcmath
 
@@ -31,13 +28,14 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN set -eux; \
   # Install Drush
-  curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_VERSION/drush.phar" && \
-  chmod +x /usr/local/bin/drush && \
+  wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
+  && chmod +x drush.phar \
+  && mv drush.phar /usr/local/bin/drush \
   # Install Drupal Console
-  curl https://drupalconsole.com/installer -L -o drupal.phar && \
-  mv drupal.phar /usr/local/bin/drupal && \
-  chmod +x /usr/local/bin/drupal && \
-  rm -rf /etc/nginx/sites-enabled
+  && curl https://drupalconsole.com/installer -L -o drupal.phar \
+  && mv drupal.phar /usr/local/bin/drupal \
+  && chmod +x /usr/local/bin/drupal \
+  && rm -rf /etc/nginx/sites-enabled
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
