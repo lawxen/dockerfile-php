@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: d7-php74
 
 on: workflow_dispatch
 

@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: d9-php80
 
 on: workflow_dispatch
 
