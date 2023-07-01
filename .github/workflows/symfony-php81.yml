@@ -1,4 +1,4 @@
-name: d9-php81-dev
+name: symfony-php81
 
 on: workflow_dispatch
 
@@ -8,9 +8,9 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'd9/php81/dev'
+          - 'symfony/php81/base'
         tag:
-          - 'd9-php81-dev'
+          - 'symfony-php81'
     steps:
     - uses: actions/checkout@v2
     -
@@ -34,4 +34,4 @@ jobs:
         context: ${{ matrix.folder }}
         platforms: linux/amd64,linux/arm64
         file: '${{ matrix.folder }}/Dockerfile'
-        tags: 'lawxen/drupal:${{ matrix.tag }}'
+        tags: 'lawxen/php:${{ matrix.tag }}'

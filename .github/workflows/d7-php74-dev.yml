@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'd7/php74/dev'
+          - 'drupal/7/php74/dev'
         tag:
           - 'd7-php74-dev'
     steps:

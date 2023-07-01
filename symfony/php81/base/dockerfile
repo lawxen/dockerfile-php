@@ -1,4 +1,5 @@
-FROM php:8.2-fpm-bullseye
+# from https://www.drupal.org/docs/system-requirements/php-requirements
+FROM php:8.1-fpm-bookworm
 
 # install the PHP extensions we need
 RUN set -eux; \
@@ -37,7 +38,7 @@ RUN set -eux; \
 	apt-mark auto '.*' > /dev/null; \
 	apt-mark manual $savedAptMark; \
 	ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-		| awk '/=>/ { print $3 }' \
+		| awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); print so }' \
 		| sort -u \
 		| xargs -r dpkg-query -S \
 		| cut -d: -f1 \
@@ -58,6 +59,9 @@ RUN { \
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
+
+# vim:set ft=dockerfile:
+
 ### Above copy from https://github.com/docker-library/drupal/blob/master/10.0/php8.2/fpm-bullseye/Dockerfile
 
 # set timezone
@@ -69,6 +73,9 @@ RUN apt-get update \
   && apt-get install -y git vim wget mariadb-client nginx \
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-install bcmath
+
+# install Symfony CLI
+RUN wget https://get.symfony.com/cli/installer -O - | bash
 
 # Install redis
 RUN pecl install redis && docker-php-ext-enable redis
@@ -84,6 +91,7 @@ RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+ADD config/default.conf /etc/nginx/conf.d/
 
 # Install rsyslog.
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
@@ -96,7 +104,7 @@ RUN apt-get -y install rsyslog
 EXPOSE 80
 EXPOSE 443
 
-WORKDIR "/var/www/html"
+WORKDIR "/var/www/project"
 ADD start.sh /start.sh
 RUN set -eux; \
         chmod 755 /start.sh

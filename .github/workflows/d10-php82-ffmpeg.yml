@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'd10/php82/ffmpeg'
+          - 'drupal/10/php82/ffmpeg'
         tag:
           - 'd10-php82-ffmpeg'
     steps:
