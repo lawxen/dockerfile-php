@@ -13,13 +13,6 @@ RUN apt-get update \
 # Install redis
 RUN pecl install redis && docker-php-ext-enable redis
 
-# php config for drupal
-RUN { \
-  echo 'memory_limit = 4096M'; \
-  echo 'post_max_size = 30M'; \
-  echo 'upload_max_filesize = 30M'; \
-  } > /usr/local/etc/php/conf.d/php.ini
-
 RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf
 
 # install Composer globally
