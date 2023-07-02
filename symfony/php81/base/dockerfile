@@ -75,8 +75,7 @@ RUN apt-get update \
   && docker-php-ext-install \
 		bcmath \
 		apcu \
-		intl \
-	 ;
+		intl
 
 # install Symfony CLI
 RUN wget https://get.symfony.com/cli/installer -O - | bash
