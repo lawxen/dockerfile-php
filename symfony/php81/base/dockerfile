@@ -72,10 +72,36 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update \
   && apt-get install -y git vim wget mariadb-client nginx \
   && rm -rf /var/lib/apt/lists/* \
-  && docker-php-ext-install \
-		bcmath \
-		apcu \
-		intl
+#   && docker-php-ext-install bcmath apcu intl
+  && docker-php-ext-install bcmath
+ 
+###########################################################################
+# Human Language and Character Encoding Support:
+###########################################################################
+
+ARG INSTALL_INTL=true
+
+RUN if [ ${INSTALL_INTL} = true ]; then \
+    # Install intl and requirements
+    apt-get install -yqq zlib1g-dev libicu-dev g++ && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl \
+;fi
+
+###########################################################################
+# APCU:
+###########################################################################
+
+ARG INSTALL_APCU=false
+
+RUN if [ ${INSTALL_APCU} = true ]; then \
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+        pecl install -a apcu-4.0.11; \
+    else \
+        pecl install apcu; \
+    fi && \
+    docker-php-ext-enable apcu \
+;fi
 
 # install Symfony CLI
 RUN wget https://get.symfony.com/cli/installer -O - | bash
