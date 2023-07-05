@@ -115,8 +115,10 @@ RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/app.ini /usr/local/etc/php/conf.d/app.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-ADD config/default.conf /etc/nginx/conf.d/
-ADD config/projects.conf /etc/nginx/conf.d/
+RUN mkdir /etc/nginx/sites-enabled-back
+RUN mv /etc/nginx/sites-enabled/* /etc/nginx/sites-enabled-back/
+ADD config/default.conf /etc/nginx/sites-enabled/
+ADD config/projects.conf /etc/nginx/sites-enabled/
 
 # Install rsyslog.
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
