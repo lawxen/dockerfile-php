@@ -9,7 +9,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install the PHP extensions and other app we need
 RUN apt-get update \
-  && apt-get install -y git vim mariadb-client nginx\
+  && apt-get install -y git vim wget mariadb-client nginx \
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-install bcmath
 
