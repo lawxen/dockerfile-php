@@ -24,8 +24,9 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN set -eux; \
   # Install Drush
-  curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_VERSION/drush.phar" && \
-  chmod +x /usr/local/bin/drush && \
+  wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
+  && chmod +x drush.phar \
+  && mv drush.phar /usr/local/bin/drush \
   # Install Drupal Console
   curl https://drupalconsole.com/installer -L -o drupal.phar && \
   mv drupal.phar /usr/local/bin/drupal && \
