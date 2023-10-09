@@ -1,7 +1,7 @@
 FROM drupal:9-php7.4-fpm
 
 ################################Custom##########################################
-ENV DRUSH_VERSION 0.9.1
+ENV DRUSH_VERSION 0.10.2
 
 # set timezone
 ENV TZ=Asia/Shanghai
