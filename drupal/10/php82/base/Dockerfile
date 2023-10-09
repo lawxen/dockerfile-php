@@ -51,7 +51,7 @@ EXPOSE 443
 RUN set -eux; \
         rm -rf /opt/drupal && \
         rm -rf /var/www && \
-        mkdir -P /var/www/html
+        mkdir -p /var/www/html
 
 # WORKDIR "/var/www"
 # # Install Drupal
