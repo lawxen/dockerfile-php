@@ -1,8 +1,5 @@
 FROM drupal:9-php7.4-fpm
 
-################################Custom##########################################
-ENV DRUSH_VERSION 0.10.2
-
 # set timezone
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -28,10 +25,10 @@ RUN set -eux; \
   && chmod +x drush.phar \
   && mv drush.phar /usr/local/bin/drush \
   # Install Drupal Console
-  curl https://drupalconsole.com/installer -L -o drupal.phar && \
-  mv drupal.phar /usr/local/bin/drupal && \
-  chmod +x /usr/local/bin/drupal && \
-  rm -rf /etc/nginx/sites-enabled
+  && curl https://drupalconsole.com/installer -L -o drupal.phar \
+  && mv drupal.phar /usr/local/bin/drupal \
+  && chmod +x /usr/local/bin/drupal \
+  && rm -rf /etc/nginx/sites-enabled
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
