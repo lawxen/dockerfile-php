@@ -47,6 +47,12 @@ RUN { \
 EXPOSE 80
 EXPOSE 443
 
+# clean
+RUN set -eux; \
+        rm -rf /opt/drupal && \
+        rm -rf /var/www && \
+        mkdir -P /var/www/html
+
 # WORKDIR "/var/www"
 # # Install Drupal
 # RUN set -eux; \
