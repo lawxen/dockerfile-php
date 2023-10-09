@@ -14,8 +14,8 @@ RUN { \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN set -eux; \
-        composer global require drupal/coder && \
-        composer global require dealerdirect/phpcodesniffer-composer-installer
+        composer global require drupal/coder
+        # composer global require dealerdirect/phpcodesniffer-composer-installer
 
 RUN { \
     echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"'; \
