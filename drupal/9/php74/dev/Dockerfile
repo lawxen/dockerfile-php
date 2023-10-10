@@ -1,7 +1,7 @@
 FROM lawxen/drupal:d9-php74
 
 # Install xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
 
 RUN { \
     echo '[xdebug]'; \
