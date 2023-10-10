@@ -47,6 +47,12 @@ RUN { \
 EXPOSE 80
 EXPOSE 443
 
+# clean soft link which break xdebug
+RUN set -eux; \
+        rm -rf /opt/drupal && \
+        rm -rf /var/www && \
+        mkdir -p /var/www/html
+
 # WORKDIR "/var/www"
 # # Install Drupal
 # RUN set -eux; \

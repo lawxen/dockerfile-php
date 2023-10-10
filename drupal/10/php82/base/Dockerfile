@@ -47,7 +47,7 @@ RUN { \
 EXPOSE 80
 EXPOSE 443
 
-# clean
+# clean soft link which break xdebug
 RUN set -eux; \
         rm -rf /opt/drupal && \
         rm -rf /var/www && \
