@@ -1,6 +1,6 @@
 FROM lawxen/drupal:d9-php74
 
-# Install xdebug
+# Install xdebug newest xdebug3 needs >php8.0, so install 3.1.5 instead
 RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
 
 RUN { \
