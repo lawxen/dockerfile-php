@@ -32,10 +32,7 @@ RUN set -eux; \
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-ADD config/default.conf /etc/nginx/conf.d/
-ADD config/drupal-web.conf /etc/nginx/conf.d/
-ADD config/drupal-docroot.conf /etc/nginx/conf.d/
-ADD config/drupal.conf /etc/nginx/conf.d/
+ADD config/nginx/*.conf /etc/nginx/conf.d/
 
 # Install rsyslog.
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
