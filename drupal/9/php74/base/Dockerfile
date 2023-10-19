@@ -53,6 +53,7 @@ RUN set -eux; \
         mkdir -p /var/www/html
 
 ENV PATH=${PATH}:/var/www/html/vendor/bin
+ENV PATH=${PATH}:/var/www/html/bin
 
 # WORKDIR "/var/www"
 # # Install Drupal
