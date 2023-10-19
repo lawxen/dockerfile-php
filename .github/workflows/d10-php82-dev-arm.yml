@@ -1,4 +1,4 @@
-name: d10-php82-dev
+name: d10-php82-dev-arm
 
 on: workflow_dispatch
 
