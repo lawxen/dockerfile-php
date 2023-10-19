@@ -28,11 +28,13 @@ RUN curl -sS https://getcomposer.org/installer | php \
 #   && curl https://drupalconsole.com/installer -L -o drupal.phar \
 #   && mv drupal.phar /usr/local/bin/drupal \
 #   && chmod +x /usr/local/bin/drupal \
-#   && rm -rf /etc/nginx/sites-enabled
 
 ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-ADD config/nginx/*.conf /etc/nginx/conf.d/
+
+RUN rm -rf /etc/nginx/sites-enabled/*
+ADD config/nginx/*.conf /etc/nginx/sites-enabled/
+RUN sed -i "s/var\/www\/html\/web/var\/www\/html\/${DRUPAL_WEB_ROOT:-web}g" /etc/nginx/sites-enabled/default.conf
 
 # Install rsyslog.
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
