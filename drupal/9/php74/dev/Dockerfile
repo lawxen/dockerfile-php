@@ -15,7 +15,6 @@ RUN { \
     echo 'xdebug.client_host=host.docker.internal'; \
     echo 'xdebug.discover_client_host=true'; \
     echo 'xdebug.start_with_request=yes'; \
-    echo 'error_log = /var/log/php_error.log'; \
     echo 'xdebug.log = /var/log/xdebug.log'; \
     # echo 'xdebug.idekey=PHPSTORM'; \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

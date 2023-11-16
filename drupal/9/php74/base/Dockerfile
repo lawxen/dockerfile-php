@@ -29,7 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 #   && mv drupal.phar /usr/local/bin/drupal \
 #   && chmod +x /usr/local/bin/drupal \
 
-ADD config/php-upload.ini /usr/local/etc/php/conf.d/php-uploads.ini
+ADD config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 RUN rm -rf /etc/nginx/sites-enabled/*
