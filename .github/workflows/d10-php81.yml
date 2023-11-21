@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         folder:
-          - 'd10/php81/base'
+          - 'drupal/10/php81/base'
         tag:
           - 'd10-php81'
     steps:
