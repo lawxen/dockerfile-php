@@ -37,3 +37,5 @@ RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass"
 # RUN /bin/bash -c "source /root/.bashrc;npm install apidoc -g"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"
+# Enable yarn by Corepack
+RUN /bin/bash -c "source /root/.bashrc;corepack enable"
