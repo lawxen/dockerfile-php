@@ -1,4 +1,4 @@
-FROM drupal:9-php7.4-fpm
+FROM drupal:10-php8.3-fpm
 
 # set timezone
 ENV TZ=Asia/Shanghai
@@ -19,23 +19,8 @@ RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer
 
-# RUN set -eux; \
-#   # Install Drush
-#   wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
-#   && chmod +x drush.phar \
-#   && mv drush.phar /usr/local/bin/drush \
-#   # Install Drupal Console
-#   && curl https://drupalconsole.com/installer -L -o drupal.phar \
-#   && mv drupal.phar /usr/local/bin/drupal \
-#   && chmod +x /usr/local/bin/drupal \
-
 ADD config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-
-# Preemptively creates log files, and give them to www-data
-RUN cd /var/log \
-  && touch php_error.log \
-  && chown 1001:1001 php_error.log
 
 RUN rm -rf /etc/nginx/sites-enabled/*
 ADD config/nginx/*.conf /etc/nginx/sites-enabled/
@@ -53,11 +38,11 @@ EXPOSE 443
 
 # clean soft link which break xdebug
 RUN set -eux; \
-        rm -rf /opt && \
+        rm -rf /opt/drupal && \
         rm -rf /var/www && \
         mkdir -p /var/www/html
 
-ENV PATH=${PATH}:/var/www/html/bin:/var/www/html/vendor/bin
+ENV PATH=${PATH}:/var/www/html/vendor/bin:/var/www/html/bin
 
 # WORKDIR "/var/www"
 # # Install Drupal

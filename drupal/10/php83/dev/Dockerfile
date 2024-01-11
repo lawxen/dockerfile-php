@@ -1,12 +1,12 @@
-FROM lawxen/drupal:d9-php74
+FROM lawxen/drupal:d10-php83
 
-# Install xdebug newest xdebug3 needs >php8.0, so install 3.1.5 instead
-RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
+# Install xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \
-  && touch xdebug.log \
-  && chown 1001:1001 xdebug.log
+  && touch php_error.log xdebug.log \
+  && chown 1001:1001 php_error.log xdebug.log
 
 # Config Xdebug
 RUN { \
@@ -37,3 +37,5 @@ RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass"
 # RUN /bin/bash -c "source /root/.bashrc;npm install apidoc -g"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"
+# Enable yarn by Corepack
+RUN /bin/bash -c "source /root/.bashrc;corepack enable"
