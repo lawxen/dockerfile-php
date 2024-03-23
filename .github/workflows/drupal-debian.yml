@@ -7,11 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php_version:
+        version:
           - 'php8.3'
-        pkg_version:
-          - ''
-          - '-d10'
+          - 'php8.3-d10'
     steps:
       -
         name: Checkout
@@ -35,5 +33,5 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/debian/${{ matrix.php_version }}/${{ matrix.php_version }}${{ matrix.pkg_version }}/Dockerfile'
-          tags: 'lawxen/drupal:${{ matrix.php_version }}${{ matrix.pkg_version }}'
+          file: 'drupal/debian/${{ matrix.version }}/Dockerfile'
+          tags: 'lawxen/drupal:${{ matrix.version }}'

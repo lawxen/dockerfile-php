@@ -1,4 +1,4 @@
-name: drupal-php8.3-alpine
+name: drupal-alpine
 
 on: workflow_dispatch
 
@@ -7,11 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tag:
+        version:
           - 'php8.3-alpine'
-          - 'php8.3-alpine-dev'
-          - '10-php8.3-alpine'
-          - '10-php8.3-alpine-dev'
+          - 'php8.3-alpine-d10'
     steps:
       -
         name: Checkout
@@ -35,5 +33,5 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/alpine/php8.3/${{ matrix.tag }}/Dockerfile'
-          tags: 'lawxen/drupal:${{ matrix.tag }}'
+          file: 'drupal/alpine/${{ matrix.version }}/Dockerfile'
+          tags: 'lawxen/drupal:${{ matrix.version }}'

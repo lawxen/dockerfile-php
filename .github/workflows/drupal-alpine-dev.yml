@@ -1,4 +1,4 @@
-name: drupal-debian-dev
+name: drupal-alpine-dev
 
 on: workflow_dispatch
 
@@ -8,8 +8,8 @@ jobs:
     strategy:
       matrix:
         version:
-          - 'php8.3-dev'
-          - 'php8.3-d10-dev'
+          - 'php8.3-alpine-dev'
+          - 'php8.3-alpine-d10-dev'
     steps:
       -
         name: Checkout
@@ -33,5 +33,5 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/debian/${{ matrix.version }}/Dockerfile'
+          file: 'drupal/alpine/${{ matrix.version }}/Dockerfile'
           tags: 'lawxen/drupal:${{ matrix.version }}'
