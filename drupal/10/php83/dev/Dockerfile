@@ -20,10 +20,7 @@ RUN { \
   } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Install drupal coder and config it
-RUN export COMPOSER_HOME="$(mktemp -d)"; \
-    composer global require drupal/coder; \
-    # delete composer cache
-    rm -rf "$COMPOSER_HOME"
+RUN composer global require drupal/coder
 
 RUN { \
   echo "alias drupalcs=\"phpcs --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
