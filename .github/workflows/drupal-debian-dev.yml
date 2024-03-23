@@ -1,4 +1,4 @@
-name: drupal-debian
+name: drupal-debian-dev
 
 on: workflow_dispatch
 
