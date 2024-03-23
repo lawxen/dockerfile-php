@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install the PHP extensions and other app we need
 RUN apk update \
-  && apk add iputils git vim wget mariadb-client nginx autoconf gcc g++ make \
+  && apk add iputils git vim wget mariadb-client nginx autoconf g++ make \
   && rm -rf /var/cache/apk/* \
   && docker-php-ext-install bcmath
 
