@@ -10,8 +10,8 @@ jobs:
         php_version:
           - 'php8.3'
         pkg_version:
-          - ''
-          - '-d10'
+          - 'dev'
+          - '-d10-dev'
     steps:
       -
         name: Checkout
