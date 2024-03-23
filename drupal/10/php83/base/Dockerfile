@@ -38,8 +38,8 @@ EXPOSE 443
 
 # clean soft link which break xdebug
 RUN set -eux; \
-        rm -rf /var/www/html && \
-        mv /opt/drupal var/www/html
+        rm -rf /var/www/html; \
+        mv /opt/drupal /var/www/html
 
 # Install drush
 WORKDIR "/var/www/html"
