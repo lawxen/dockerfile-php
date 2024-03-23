@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder:
-          - '.'
         tag:
           - 'php8.3-alpine'
+          - 'php8.3-alpine-dev'
+          - '10-php8.3-alpine'
+          - '10-php8.3-alpine-dev'
     steps:
       -
         name: Checkout
@@ -32,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ${{ matrix.folder }}
+          context: .
           platforms: linux/amd64,linux/arm64
-          file: '${{ matrix.folder }}/drupal/alpine/php8.3/base/Dockerfile'
+          file: 'drupal/alpine/php8.3/${{ matrix.tag }}/Dockerfile'
           tags: 'lawxen/drupal:${{ matrix.tag }}'

@@ -1,4 +1,4 @@
-FROM drupal:php8.3-fpm-alpine
+FROM drupal:10-php8.3-fpm-alpine
 
 # set timezone
 ENV TZ=Asia/Shanghai
@@ -24,11 +24,11 @@ ADD drupal/config/nginx/*.conf /etc/nginx/sites-enabled/
 EXPOSE 80
 EXPOSE 443
 
-# clean soft link which break xdebug
+######## Web Folder with drupal code ########
 RUN set -eux; \
+        # clean soft link which break xdebug
         rm -rf /var/www/html; \
-        rm -rf /opt/drupal; \
-        mkdir -p /var/www/html
+        mv /opt/drupal /var/www/html
 
 ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin"
 
