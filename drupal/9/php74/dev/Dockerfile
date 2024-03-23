@@ -20,14 +20,16 @@ RUN { \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Install drupal coder and config it
-RUN set -eux; \
-        composer global require drupal/coder; \
-        { \
-        echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"'; \
-        echo 'alias drupalcs="phpcs --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\""'; \
-        echo 'alias drupalcsp="phpcs --standard=DrupalPractice --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\""'; \
-        echo 'alias drupalcbf="phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\""'; \
-        } >> /root/.bashrc
+RUN export COMPOSER_HOME="$(mktemp -d)"; \
+    composer global require drupal/coder; \
+    # delete composer cache
+    rm -rf "$COMPOSER_HOME"
+
+RUN { \
+  echo "alias drupalcs=\"phpcs --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
+  echo "alias drupalcsp=\"phpcs --standard=DrupalPractice --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
+  echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
+  } >> /root/.bashrc
 
 # Install Nodejs and sass
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
@@ -35,5 +37,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | ba
 # RUN /bin/bash -c "source /root/.bashrc"
 RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass"
-# RUN /bin/bash -c "source /root/.bashrc;npm install apidoc -g"
 RUN /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"
+# Enable yarn by Corepack
+RUN /bin/bash -c "source /root/.bashrc;corepack enable"
