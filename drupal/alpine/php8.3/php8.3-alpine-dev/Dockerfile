@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install the PHP extensions and other app we need
 RUN apk update \
-  && apk add iputils git vim wget mariadb-client nginx autoconf g++ make \
+  && apk add iputils git vim wget mariadb-client nginx autoconf gcc g++ make \
   && rm -rf /var/cache/apk/* \
   && docker-php-ext-install bcmath
 
@@ -40,6 +40,11 @@ CMD ["/start.sh"]
 
 ########### DEV #############
 # Install xdebug
+# https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
+RUN apk update \
+  && apk add curl bash ca-certificates openssl ncurses coreutils python3 make gcc g++ libgcc linux-headers grep util-linux binutils findutils \
+  && rm -rf /var/cache/apk/*
+
 RUN pecl install xdebug && docker-php-ext-enable xdebug && pecl clear-cache
 
 # Preemptively creates log files, and give them to www-data
@@ -71,9 +76,11 @@ RUN { \
 # Install Nodejs and sass
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
-# RUN /bin/bash -c "source /root/.bashrc"
-RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"
-RUN /bin/bash -c "source /root/.bashrc;npm install -g sass"
-RUN /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"
-# Enable yarn by Corepack
-RUN /bin/bash -c "source /root/.bashrc;corepack enable"
+RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"; \
+    /bin/bash -c "source /root/.bashrc;npm install -g sass"; \
+    /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"; \
+    # Enable yarn by Corepack
+    /bin/bash -c "source /root/.bashrc;corepack enable"; \
+    /bin/bash -c "source /root/.bashrc;npm cache clean --force"; \
+    /bin/bash -c "source /root/.bashrc;nvm cache clear";\ 
+    /bin/bash -c "source /root/.bashrc;yarn cache clean"
