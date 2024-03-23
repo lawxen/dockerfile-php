@@ -36,4 +36,5 @@ ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bi
 ADD drupal/alpine/config/start.sh /start.sh
 RUN set -eux; \
         chmod 755 /start.sh
+WORKDIR "/var/www/html"
 CMD ["/start.sh"]
