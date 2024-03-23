@@ -51,7 +51,7 @@ RUN set -eux; \
 	      # delete composer cache
 	      rm -rf "$COMPOSER_HOME"
 
-RUN echo "export PATH=\"$PATH:$HOME/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin\""  >> /root/.bashrc
+RUN echo "export PATH=\"$$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin\""  >> /root/.bashrc
 
 ADD start.sh /start.sh
 RUN set -eux; \
