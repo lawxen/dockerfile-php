@@ -10,23 +10,23 @@ RUN cd /var/log \
 
 # Config Xdebug
 RUN { \
-    # echo '[xdebug]'; \
-    echo 'xdebug.mode=debug'; \
-    echo 'xdebug.client_host=host.docker.internal'; \
-    echo 'xdebug.discover_client_host=true'; \
-    echo 'xdebug.start_with_request=yes'; \
-    echo 'xdebug.log = /var/log/xdebug.log'; \
-    # echo 'xdebug.idekey=PHPSTORM'; \
+    # echo "[xdebug]"; \
+    echo "xdebug.mode=debug"; \
+    echo "xdebug.client_host=host.docker.internal"; \
+    echo "xdebug.discover_client_host=true"; \
+    echo "xdebug.start_with_request=yes"; \
+    echo "xdebug.log = /var/log/xdebug.log"; \
+    # echo "xdebug.idekey=PHPSTORM"; \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Install drupal coder and config it
 RUN set -eux; \
         composer global require drupal/coder; \
         { \
-        echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"'; \
-        echo 'alias drupalcs="phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml"'; \
-        echo 'alias drupalcsp="phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml"'; \
-        echo 'alias drupalcbf="phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml"'; \
+        echo "export PATH="$PATH:$HOME/.composer/vendor/bin""; \
+        echo "alias drupalcs="phpcs --standard=Drupal --extensions="php,module,inc,install,test,profile,theme,css,info,txt,md,yml"""; \
+        echo "alias drupalcsp="phpcs --standard=DrupalPractice --extensions="php,module,inc,install,test,profile,theme,css,info,txt,md,yml"""; \
+        echo "alias drupalcbf="phpcbf --standard=Drupal --extensions="php,module,inc,install,test,profile,theme,css,info,txt,md,yml"""; \
         } >> /root/.bashrc
 
 # Install Nodejs and sass
