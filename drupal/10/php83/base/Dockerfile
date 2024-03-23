@@ -38,22 +38,21 @@ EXPOSE 443
 
 # clean soft link which break xdebug
 RUN set -eux; \
-        rm -rf /opt/drupal && \
-        rm -rf /var/www && \
-        mkdir -p /var/www/html
+        rm -rf /var/www/html && \
+        mv /opt/drupal var/www/html
 
-ENV PATH=${PATH}:/var/www/html/vendor/bin:/var/www/html/bin
-
-# WORKDIR "/var/www"
-# # Install Drupal
-# RUN set -eux; \
-#         rm -rf /var/www/html && \
-#         composer create-project drupal/recommended-project drupal-download && \
-#         cd drupal-download && \
-#         composer require drush/drush && \
-#         chown -R www-data:www-data web/sites web/modules web/themes
-
+# Install drush
 WORKDIR "/var/www/html"
+RUN set -eux; \
+        export COMPOSER_HOME="$(mktemp -d)"; \
+        composer require drush/drush; \
+        composer require drupal/admin_toolbar; \
+        composer require drupal/devel; \
+	      # delete composer cache
+	      rm -rf "$COMPOSER_HOME"
+
+RUN echo "export PATH=\"$PATH:$HOME/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin\""  >> /root/.bashrc
+
 ADD start.sh /start.sh
 RUN set -eux; \
         chmod 755 /start.sh
