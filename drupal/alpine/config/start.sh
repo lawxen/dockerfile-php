@@ -23,8 +23,7 @@ if [ -n "${XDEBUG_CLIENT_PORT}" ]; then
         fi
     fi
 fi
-service rsyslog start
-service nginx start
+nginx
 php-fpm
 
 # HTMLDIR=/var/www/html

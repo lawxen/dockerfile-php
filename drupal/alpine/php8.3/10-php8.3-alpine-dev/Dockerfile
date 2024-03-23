@@ -15,11 +15,11 @@ RUN pecl install redis && docker-php-ext-enable redis && pecl clear-cache
 
 RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf
 
-ADD drupal/config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
-ADD drupal/config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+ADD drupal/alpine/config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
+ADD drupal/alpine/config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 RUN rm -rf /etc/nginx/sites-enabled/*
-ADD drupal/config/nginx/*.conf /etc/nginx/sites-enabled/
+ADD drupal/alpine/config/nginx/*.conf /etc/nginx/sites-enabled/
 
 EXPOSE 80
 EXPOSE 443
@@ -32,7 +32,7 @@ RUN set -eux; \
 
 ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin"
 
-ADD drupal/config/start.sh /start.sh
+ADD drupal/alpine/config/start.sh /start.sh
 RUN set -eux; \
         chmod 755 /start.sh
 CMD ["/start.sh"]
@@ -41,7 +41,7 @@ CMD ["/start.sh"]
 # Install xdebug
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
 RUN apk update \
-  && apk add curl bash ca-certificates openssl ncurses coreutils python3 make gcc g++ libgcc linux-headers grep util-linux binutils findutils \
+  && apk add linux-headers \
   && rm -rf /var/cache/apk/*
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug && pecl clear-cache
@@ -72,14 +72,18 @@ RUN { \
   echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
   } >> /root/.bashrc
 
-# Install Nodejs and sass
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+# RUN apk update \
+#   && apk add curl bash ca-certificates openssl ncurses coreutils python3 make gcc g++ libgcc linux-headers grep util-linux binutils findutils \
+#   && rm -rf /var/cache/apk/*
 
-RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"; \
-    /bin/bash -c "source /root/.bashrc;npm install -g sass"; \
-    /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"; \
-    # Enable yarn by Corepack
-    /bin/bash -c "source /root/.bashrc;corepack enable"; \
-    /bin/bash -c "source /root/.bashrc;npm cache clean --force"; \
-    /bin/bash -c "source /root/.bashrc;nvm cache clear";\ 
-    /bin/bash -c "source /root/.bashrc;yarn cache clean"
+# # Install Nodejs and sass
+# RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+
+# RUN /bin/bash -c "source /root/.bashrc;nvm install --lts"; \
+#     /bin/bash -c "source /root/.bashrc;npm install -g sass"; \
+#     /bin/bash -c "source /root/.bashrc;npm install -g sass-convert"; \
+#     # Enable yarn by Corepack
+#     /bin/bash -c "source /root/.bashrc;corepack enable"; \
+#     /bin/bash -c "source /root/.bashrc;npm cache clean --force"; \
+#     /bin/bash -c "source /root/.bashrc;nvm cache clear";\ 
+#     /bin/bash -c "source /root/.bashrc;yarn cache clean"

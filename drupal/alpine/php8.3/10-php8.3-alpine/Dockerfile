@@ -15,11 +15,11 @@ RUN pecl install redis && docker-php-ext-enable redis && pecl clear-cache
 
 RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf
 
-ADD drupal/config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
-ADD drupal/config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+ADD drupal/alpine/config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
+ADD drupal/alpine/config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 RUN rm -rf /etc/nginx/sites-enabled/*
-ADD drupal/config/nginx/*.conf /etc/nginx/sites-enabled/
+ADD drupal/alpine/config/nginx/*.conf /etc/nginx/sites-enabled/
 
 EXPOSE 80
 EXPOSE 443
@@ -32,7 +32,7 @@ RUN set -eux; \
 
 ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin"
 
-ADD drupal/config/start.sh /start.sh
+ADD drupal/alpine/config/start.sh /start.sh
 RUN set -eux; \
         chmod 755 /start.sh
 CMD ["/start.sh"]
