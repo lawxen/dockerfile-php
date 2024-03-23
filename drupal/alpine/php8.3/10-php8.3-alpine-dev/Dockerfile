@@ -18,8 +18,8 @@ RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/
 ADD drupal/alpine/config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
 ADD drupal/alpine/config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
-RUN rm -rf /etc/nginx/sites-enabled/*
-ADD drupal/alpine/config/nginx/*.conf /etc/nginx/sites-enabled/
+RUN rm -rf /etc/nginx/http.d/*
+ADD drupal/alpine/config/nginx/*.conf /etc/nginx/http.d/
 
 EXPOSE 80
 EXPOSE 443
