@@ -1,7 +1,7 @@
-FROM lawxen/drupal:php8.3
+FROM lawxen/drupal:php7.4-debian-d9
 
 # Install xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \

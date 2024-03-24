@@ -7,9 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version:
-          - 'php8.3-alpine'
-          - 'php8.3-alpine-d10'
+        php_version:
+          - 'php8.3'
+          - 'php8.2'
+        tag_suffix:
+          - 'alpine'
+          - 'alpine-d10'
     steps:
       -
         name: Checkout
@@ -33,5 +36,5 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/alpine/${{ matrix.version }}/Dockerfile'
-          tags: 'lawxen/drupal:${{ matrix.version }}'
+          file: 'drupal/alpine/${{ matrix.php_version }}/${{ matrix.tag_suffix }}/Dockerfile'
+          tags: 'lawxen/drupal:${{ matrix.php_version }}-${{ matrix.tag_suffix }}'
