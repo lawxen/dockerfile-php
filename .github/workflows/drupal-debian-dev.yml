@@ -7,12 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php_version:
-          - 'php8.3'
-          - 'php8.2'
-        tag_suffix:
-          - 'debian-dev'
-          - 'debian-d10-dev'
+        version:
+          - folder: 'php7.4/debian-dev'
+            tag: 'php7.4-debian-dev'
+          - folder: 'php7.4/debian-d9-dev'
+            tag: 'php7.4-debian-d9-dev'
+          - folder: 'php8.2/debian-dev'
+            tag: 'php8.2-debian-dev'
+          - folder: 'php8.2/debian-d10-dev'
+            tag: 'php8.2-debian-d10-dev'
+          - folder: 'php8.3/debian-dev'
+            tag: 'php8.3-debian-dev'
+          - folder: 'php8.3/debian-d10-dev'
+            tag: 'php8.3-debian-d10-dev'
+
     steps:
       -
         name: Checkout
@@ -36,5 +44,5 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/debian/${{ matrix.php_version }}/${{ matrix.tag_suffix }}/Dockerfile'
-          tags: 'lawxen/drupal:${{ matrix.php_version }}-${{ matrix.tag_suffix }}'
+          file: 'drupal/debian/${{ matrix.version.folder }}/Dockerfile'
+          tags: 'lawxen/drupal:${{ matrix.version.tag }}'

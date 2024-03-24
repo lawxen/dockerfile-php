@@ -7,12 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php_version:
-          - 'php8.3'
-          - 'php8.2'
-        tag_suffix:
-          - 'alpine-dev'
-          - 'alpine-d10-dev'
+        version:
+          - folder: 'php7.4/alpine-dev'
+            tag: 'php7.4-alpine-dev'
+          - folder: 'php7.4/alpine-d9-dev'
+            tag: 'php7.4-alpine-d9-dev'
+          - folder: 'php8.2/alpine-dev'
+            tag: 'php8.2-alpine-dev'
+          - folder: 'php8.2/alpine-d10-dev'
+            tag: 'php8.2-alpine-d10-dev'
+          - folder: 'php8.3/alpine-dev'
+            tag: 'php8.3-alpine-dev'
+          - folder: 'php8.3/alpine-d10-dev'
+            tag: 'php8.3-alpine-d10-dev'
+
     steps:
       -
         name: Checkout
@@ -36,5 +44,5 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/alpine/${{ matrix.php_version }}/${{ matrix.tag_suffix }}/Dockerfile'
-          tags: 'lawxen/drupal:${{ matrix.php_version }}-${{ matrix.tag_suffix }}'
+          file: 'drupal/alpine/${{ matrix.version.folder }}/Dockerfile'
+          tags: 'lawxen/drupal:${{ matrix.version.tag }}'
