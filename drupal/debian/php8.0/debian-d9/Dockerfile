@@ -1,4 +1,4 @@
-FROM drupal:php8.0-fpm
+FROM drupal:9-php8.0-fpm
 
 # set timezone
 ENV TZ=Asia/Shanghai
