@@ -37,12 +37,13 @@ RUN set -eux; \
         rm -rf /var/www/html; \
         mv /opt/drupal /var/www/html
 
-# Install drush
 WORKDIR "/var/www/html"
 RUN set -eux; \
         export COMPOSER_HOME="$(mktemp -d)"; \
         composer require drush/drush; \
-        # delete composer cache
+        composer require drupal/admin_toolbar; \
+        composer require drupal/devel; \
+	# delete composer cache
 	rm -rf "$COMPOSER_HOME"
 
 ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin"

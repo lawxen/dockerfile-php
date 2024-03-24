@@ -30,10 +30,18 @@ RUN set -eux; \
         rm -rf /var/www/html; \
         mv /opt/drupal /var/www/html
 
+WORKDIR "/var/www/html"
+RUN set -eux; \
+        export COMPOSER_HOME="$(mktemp -d)"; \
+        composer require drush/drush; \
+        composer require drupal/admin_toolbar; \
+        composer require drupal/devel; \
+	# delete composer cache
+	rm -rf "$COMPOSER_HOME"
+
 ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin"
 
 ADD drupal/alpine/config/start.sh /start.sh
 RUN set -eux; \
         chmod 755 /start.sh
-WORKDIR "/var/www/html"
 CMD ["/start.sh"]
