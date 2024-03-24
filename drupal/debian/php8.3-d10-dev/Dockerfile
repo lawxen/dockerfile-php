@@ -1,4 +1,4 @@
-FROM lawxen/drupal:10-php8.3
+FROM lawxen/drupal:php8.3-d10
 
 # Install xdebug
 RUN pecl install xdebug && docker-php-ext-enable xdebug
