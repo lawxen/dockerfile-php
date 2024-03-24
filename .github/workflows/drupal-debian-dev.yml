@@ -8,21 +8,24 @@ jobs:
     strategy:
       matrix:
         version:
-          - folder: 'php7.4/debian-dev'
+          - BUILD_PHP_VERSION: '7.4'
             tag: 'php7.4-debian-dev'
-          - folder: 'php7.4/debian-d9-dev'
-            tag: 'php7.4-debian-d9-dev'
-          - folder: 'php8.0/debian-dev'
+          - BUILD_PHP_VERSION: '8.0'
             tag: 'php8.0-debian-dev'
-          - folder: 'php8.0/debian-d9-dev'
+          - BUILD_PHP_VERSION: '8.0'
+            BUILD_DRUPAL_VERSION: '-d9'
             tag: 'php8.0-debian-d9-dev'
-          - folder: 'php8.2/debian-dev'
+          - BUILD_PHP_VERSION: '8.1'
+            tag: 'php8.1-debian-dev'
+          - BUILD_PHP_VERSION: '8.2'
             tag: 'php8.2-debian-dev'
-          - folder: 'php8.2/debian-d10-dev'
+          - BUILD_PHP_VERSION: '8.2'
+            BUILD_DRUPAL_VERSION: '-d10'
             tag: 'php8.2-debian-d10-dev'
-          - folder: 'php8.3/debian-dev'
+          - BUILD_PHP_VERSION: '8.3'
             tag: 'php8.3-debian-dev'
-          - folder: 'php8.3/debian-d10-dev'
+          - BUILD_PHP_VERSION: '8.3'
+            BUILD_DRUPAL_VERSION: '-d10'
             tag: 'php8.3-debian-d10-dev'
 
     steps:
@@ -46,7 +49,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: .
+          context: drupal/debian
           platforms: linux/amd64,linux/arm64
-          file: 'drupal/debian/${{ matrix.version.folder }}/Dockerfile'
+          file: 'Dockerfile-dev'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
+          build-args: |
+            MY_PHP_VERSION=${{ matrix.version.BUILD_PHP_VERSION }}
+            MY_DRUPAL_VERSION=${{ matrix.version.BUILD_DRUPAL_VERSION }}
