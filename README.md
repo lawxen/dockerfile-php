@@ -9,7 +9,7 @@ docker buildx create --use --name docker-container --driver docker-container
 
 ## Build
 ```
-docker buildx build -f drupal/alpine/php8.3/alpine/Dockerfile --platform linux/amd64,linux/arm64 -t lawxen/drupal:d9-php80 --push .
+docker buildx build -f drupal/debian/php8.0/debian/Dockerfile --platform linux/amd64,linux/arm64 -t lawxen/drupal:php8.0-debian --push .
 ```
 
 ## Build with no cache
