@@ -1,4 +1,4 @@
-FROM lawxen/drupal:php7.4-debian
+FROM lawxen/drupal:php7.4-fpm
 
 RUN set -x \
     && apt-get update \

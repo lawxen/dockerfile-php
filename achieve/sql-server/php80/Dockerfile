@@ -1,4 +1,4 @@
-FROM lawxen/drupal:php80
+FROM lawxen/drupal:php8.0-fpm
 
 RUN set -x \
     && apt-get update \
