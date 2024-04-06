@@ -15,4 +15,4 @@ docker buildx build -f Dockerfile.template --platform linux/amd64,linux/arm64 --
 docker buildx build -f Dockerfile.template --platform linux/amd64,linux/arm64 --build-arg TAG_FROM=php8.3-fpm-alpine --build-arg KEEP_DRUPAL_FILES=1 -t lawxen/drupal:10-php8.3-fpm-alpine --push .
 
 # This is for local test only
-# docker buildx build --load -f Dockerfile.template --platform inux/arm64 --build-arg TAG_FROM=php8.3-fpm-alpine -t lawxen/drupal:php8.3-fpm-alpine .
+# docker buildx build --load -f Dockerfile.template --platform linux/arm64 --build-arg TAG_FROM=php8.3-fpm-alpine -t lawxen/drupal:php8.3-fpm-alpine .
