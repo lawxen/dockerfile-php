@@ -10,6 +10,9 @@ EXPOSE 80
 EXPOSE 443
 
 ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bin"
+ADD config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
+ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+ADD config/start.sh /start.sh
 
 # install the PHP extensions and other app we need
 RUN apk update; \
@@ -21,11 +24,8 @@ RUN apk update; \
     sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf; \
     chmod 755 /start.sh;
 
-ADD config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
-ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 ###### Alpine specific
 ADD config/nginx/*.conf /etc/nginx/http.d/
-ADD config/start.sh /start.sh
 
 # clean soft link which break xdebug
 RUN rm -rf /var/www/html; \
