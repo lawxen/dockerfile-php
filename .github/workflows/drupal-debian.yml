@@ -14,20 +14,12 @@ jobs:
           - BUILD_PHP_VERSION: '8.0'
             BUILD_DRUPAL_VERSION: '9'
             tag: 'php8.0-debian'
-          - BUILD_PHP_VERSION: '8.0'
-            BUILD_DRUPAL_VERSION: '9'
-            KEEP_DRUPAL_FILES: 1
-            tag: 'php8.0-debian-d9'
           - BUILD_PHP_VERSION: '8.1'
             BUILD_DRUPAL_VERSION: '10'
             tag: 'php8.1-debian'
           - BUILD_PHP_VERSION: '8.2'
             BUILD_DRUPAL_VERSION: '10'
             tag: 'php8.2-debian'
-          - BUILD_PHP_VERSION: '8.2'
-            BUILD_DRUPAL_VERSION: '10'
-            KEEP_DRUPAL_FILES: 1
-            tag: 'php8.2-debian-d10'
           - BUILD_PHP_VERSION: '8.3'
             BUILD_DRUPAL_VERSION: '10'
             tag: 'php8.3-debian'
@@ -59,7 +51,7 @@ jobs:
           push: true
           context: drupal/debian
           platforms: linux/amd64,linux/arm64
-          file: 'Dockerfile'
+          file: 'Dockerfile.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
           build-args: |
             MY_PHP_VERSION=${{ matrix.version.BUILD_PHP_VERSION }}

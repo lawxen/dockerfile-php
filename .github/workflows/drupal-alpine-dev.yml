@@ -1,4 +1,4 @@
-name: drupal-debian-dev
+name: drupal-alpine-dev
 
 on: workflow_dispatch
 
@@ -9,18 +9,18 @@ jobs:
       matrix:
         version:
           - BUILD_PHP_VERSION: '7.4'
-            tag: 'php7.4-debian-dev'
+            tag: 'php7.4-alpine-dev'
           - BUILD_PHP_VERSION: '8.0'
-            tag: 'php8.0-debian-dev'
+            tag: 'php8.0-alpine-dev'
           - BUILD_PHP_VERSION: '8.1'
-            tag: 'php8.1-debian-dev'
+            tag: 'php8.1-alpine-dev'
           - BUILD_PHP_VERSION: '8.2'
-            tag: 'php8.2-debian-dev'
+            tag: 'php8.2-alpine-dev'
           - BUILD_PHP_VERSION: '8.3'
-            tag: 'php8.3-debian-dev'
+            tag: 'php8.3-alpine-dev'
           - BUILD_PHP_VERSION: '8.3'
             BUILD_DRUPAL_VERSION: '-d10'
-            tag: 'php8.3-debian-d10-dev'
+            tag: 'php8.3-alpine-d10-dev'
 
     steps:
       -
@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: drupal/debian
+          context: drupal/alpine
           platforms: linux/amd64,linux/arm64
           file: 'Dockerfile-dev.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'

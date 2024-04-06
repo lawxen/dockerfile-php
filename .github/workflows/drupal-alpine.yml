@@ -1,4 +1,4 @@
-name: drupal-debian-dev
+name: drupal-alpine
 
 on: workflow_dispatch
 
@@ -9,18 +9,24 @@ jobs:
       matrix:
         version:
           - BUILD_PHP_VERSION: '7.4'
-            tag: 'php7.4-debian-dev'
+            BUILD_DRUPAL_VERSION: '9'
+            tag: 'php7.4-alpine'
           - BUILD_PHP_VERSION: '8.0'
-            tag: 'php8.0-debian-dev'
+            BUILD_DRUPAL_VERSION: '9'
+            tag: 'php8.0-alpine'
           - BUILD_PHP_VERSION: '8.1'
-            tag: 'php8.1-debian-dev'
+            BUILD_DRUPAL_VERSION: '10'
+            tag: 'php8.1-alpine'
           - BUILD_PHP_VERSION: '8.2'
-            tag: 'php8.2-debian-dev'
+            BUILD_DRUPAL_VERSION: '10'
+            tag: 'php8.2-alpine'
           - BUILD_PHP_VERSION: '8.3'
-            tag: 'php8.3-debian-dev'
+            BUILD_DRUPAL_VERSION: '10'
+            tag: 'php8.3-alpine'
           - BUILD_PHP_VERSION: '8.3'
-            BUILD_DRUPAL_VERSION: '-d10'
-            tag: 'php8.3-debian-d10-dev'
+            BUILD_DRUPAL_VERSION: '10'
+            KEEP_DRUPAL_FILES: 1
+            tag: 'php8.3-alpine-d10'
 
     steps:
       -
@@ -43,10 +49,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: drupal/debian
+          context: drupal/alpine
           platforms: linux/amd64,linux/arm64
-          file: 'Dockerfile-dev.template'
+          file: 'Dockerfile.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
           build-args: |
             MY_PHP_VERSION=${{ matrix.version.BUILD_PHP_VERSION }}
             MY_DRUPAL_VERSION=${{ matrix.version.BUILD_DRUPAL_VERSION }}
+            KEEP_DRUPAL_FILES=${{ matrix.version.KEEP_DRUPAL_FILES }}
