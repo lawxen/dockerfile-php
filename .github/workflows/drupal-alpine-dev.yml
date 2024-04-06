@@ -9,6 +9,7 @@ jobs:
       matrix:
         version:
           - BUILD_PHP_VERSION: '7.4'
+            XDEBUG_VERSION: '-3.1.5'
             tag: 'php7.4-alpine-dev'
           - BUILD_PHP_VERSION: '8.0'
             tag: 'php8.0-alpine-dev'
@@ -50,3 +51,4 @@ jobs:
           build-args: |
             MY_PHP_VERSION=${{ matrix.version.BUILD_PHP_VERSION }}
             MY_DRUPAL_VERSION=${{ matrix.version.BUILD_DRUPAL_VERSION }}
+            XDEBUG_VERSION=${{ matrix.version.XDEBUG_VERSION }}
