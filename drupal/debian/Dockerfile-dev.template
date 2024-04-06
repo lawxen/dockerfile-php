@@ -3,8 +3,7 @@ FROM lawxen/drupal:${TAG_FROM}
 
 ARG TAG_FROM
 RUN pecl channel-update pecl.php.net; \
-    # if [ "${TAG_FROM}" = "php7.4-fpm" ] ; then \
-    if [ "${TAG_FROM}" == *"php7"* ] ; then \
+    if [ "${TAG_FROM}" = "php7.4-fpm" ] ; then \
         pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug && pear clear-cache; \
     else \
         pecl install xdebug && docker-php-ext-enable xdebug && pear clear-cache; \
