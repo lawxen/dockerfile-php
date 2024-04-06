@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ./drupal/debian
+          context: "{{defaultContext}}:drupal/debian"
           platforms: linux/amd64,linux/arm64
           file: 'Dockerfile.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
