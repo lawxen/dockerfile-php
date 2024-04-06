@@ -1,6 +1,5 @@
-ARG MY_PHP_VERSION
-ARG MY_DRUPAL_VERSION
-FROM lawxen/drupal:php${MY_PHP_VERSION}-alpine${MY_DRUPAL_VERSION}
+ARG TAG_FROM
+FROM lawxen/drupal:${TAG_FROM}
 
 ########### DEV #############
 # Install xdebug
@@ -9,9 +8,11 @@ RUN apk update \
   && apk add linux-headers \
   && rm -rf /var/cache/apk/*
 
-ARG XDEBUG_VERSION
-# Install xdebug
-RUN pecl install xdebug${XDEBUG_VERSION} && docker-php-ext-enable xdebug
+RUN if [ "${TAG_FROM}" == *"7.4"* ] ; then \
+        pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug \
+    else \
+        pecl install xdebug && docker-php-ext-enable xdebug \
+    fi
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \

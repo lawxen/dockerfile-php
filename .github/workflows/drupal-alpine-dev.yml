@@ -8,20 +8,18 @@ jobs:
     strategy:
       matrix:
         version:
-          - BUILD_PHP_VERSION: '7.4'
-            XDEBUG_VERSION: '-3.1.5'
-            tag: 'php7.4-alpine-dev'
-          - BUILD_PHP_VERSION: '8.0'
-            tag: 'php8.0-alpine-dev'
-          - BUILD_PHP_VERSION: '8.1'
-            tag: 'php8.1-alpine-dev'
-          - BUILD_PHP_VERSION: '8.2'
-            tag: 'php8.2-alpine-dev'
-          - BUILD_PHP_VERSION: '8.3'
-            tag: 'php8.3-alpine-dev'
-          - BUILD_PHP_VERSION: '8.3'
-            BUILD_DRUPAL_VERSION: '-d10'
-            tag: 'php8.3-alpine-d10-dev'
+          - TAG_FROM: 'php7.4-fpm-alpine'
+            tag: 'php7.4-fpm-alpine-dev'
+          - TAG_FROM: 'php8.0-fpm-alpine'
+            tag: 'php8.0-fpm-alpine-dev'
+          - TAG_FROM: 'php8.1-fpm-alpine'
+            tag: 'php8.1-fpm-alpine-dev'
+          - TAG_FROM: 'php8.2-fpm-alpine'
+            tag: 'php8.2-fpm-alpine-dev'
+          - TAG_FROM: 'php8.3-fpm-alpine'
+            tag: 'php8.3-fpm-alpine-dev'
+          - TAG_FROM: '10-php8.3-fpm-alpine'
+            tag: '10-php8.3-fpm-alpine-dev'
 
     steps:
       -
@@ -49,6 +47,4 @@ jobs:
           file: 'Dockerfile-dev.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
           build-args: |
-            MY_PHP_VERSION=${{ matrix.version.BUILD_PHP_VERSION }}
-            MY_DRUPAL_VERSION=${{ matrix.version.BUILD_DRUPAL_VERSION }}
-            XDEBUG_VERSION=${{ matrix.version.XDEBUG_VERSION }}
+            TAG_FROM=${{ matrix.version.TAG_FROM }}
