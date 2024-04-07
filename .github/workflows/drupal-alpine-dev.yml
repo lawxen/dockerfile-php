@@ -42,9 +42,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: "{{defaultContext}}:drupal/alpine"
+          context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: 'Dockerfile-dev.template'
+          file: 'alpine/Dockerfile-dev.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
