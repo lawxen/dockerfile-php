@@ -13,7 +13,7 @@ ADD config/start.sh /start.sh
 
 # install the PHP extensions and other app we need
 RUN apk update; \
-    apk add --no-cache iputils git vim wget mariadb-client nginx bash autoconf g++ make; \
+    apk add --no-cache iputils git vim wget mariadb-client nginx bash; \
     rm -rf /var/cache/apk/*; \
     docker-php-ext-install bcmath; \
     # debian has this
@@ -32,11 +32,10 @@ RUN rm -rf /var/www/html; \
     mv /opt/drupal /var/www/html
 WORKDIR "/var/www/html"
 RUN if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
-        export COMPOSER_HOME="$(mktemp -d)"; \
         composer require drush/drush; \
         composer require drupal/admin_toolbar; \
         composer require drupal/devel; \
-        rm -rf "$COMPOSER_HOME"; \
+        composer clear-cache; \
     else \
         rm -rf /var/www/html/{,.[^.]}*; \
     fi
