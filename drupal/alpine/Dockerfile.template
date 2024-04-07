@@ -13,7 +13,7 @@ ADD config/start.sh /start.sh
 
 # install the PHP extensions and other app we need
 RUN apk update; \
-    apk add iputils git vim wget mariadb-client nginx bash autoconf g++ make; \
+    apk add --no-cache iputils git vim wget mariadb-client nginx bash autoconf g++ make; \
     rm -rf /var/cache/apk/*; \
     docker-php-ext-install bcmath; \
     # debian has this

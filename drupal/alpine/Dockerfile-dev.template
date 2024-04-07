@@ -7,7 +7,7 @@ ARG TAG_FROM
 # Install xdebug
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
 RUN apk update \
-  && apk add linux-headers \
+  && apk add --no-cache linux-headers \
   && rm -rf /var/cache/apk/*
 
 RUN pecl channel-update pecl.php.net; \
