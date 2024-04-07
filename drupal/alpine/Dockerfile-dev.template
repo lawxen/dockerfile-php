@@ -6,24 +6,21 @@ ARG TAG_FROM
 ########### DEV #############
 # Install xdebug
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
-RUN apk update \
-  && apk add --no-cache linux-headers autoconf g++ make \
-  && rm -rf /var/cache/apk/*
-
-RUN pecl channel-update pecl.php.net; \
+RUN apk add --no-cache linux-headers autoconf g++ make; \
+    rm -rf /var/cache/apk/*; \
+    pecl channel-update pecl.php.net; \
     if [ "${TAG_FROM}" = "php7.4-fpm-alpine" ] ; then \
         pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug && pear clear-cache; \
     else \
         pecl install xdebug && docker-php-ext-enable xdebug && pear clear-cache; \
-    fi
+    fi; \
+    apk del linux-headers autoconf g++ make
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \
   && touch php_error.log xdebug.log \
-  && chown 1001:1001 php_error.log xdebug.log
-
-# Config Xdebug
-RUN { \
+  && chown 1001:1001 php_error.log xdebug.log; \
+  { \
   # echo "[xdebug]"; \
   echo "xdebug.mode=debug"; \
   echo "xdebug.client_host=host.docker.internal"; \
@@ -35,9 +32,8 @@ RUN { \
 
 # Install drupal coder and config it
 RUN composer global require drupal/coder; \
-    composer clear-cache
-
-RUN { \
+  composer clear-cache; \
+  { \
   echo "alias drupalcs=\"phpcs --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
   echo "alias drupalcsp=\"phpcs --standard=DrupalPractice --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
   echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
