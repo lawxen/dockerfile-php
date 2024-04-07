@@ -1,14 +1,14 @@
  #!/bin/sh
-sed -i "s#var/www/html/web#var/www/html/${DRUPAL_WEB_ROOT:-web}#" /etc/nginx/conf.d/default.conf
+sed -i "s#var/www/html/web#var/www/html/${DRUPAL_WEB_ROOT:-web}#" /etc/nginx/http.d/default.conf
 
 # Override server name for xdebug frendly on multiple sites debug simultaneously and https://github.com/nginx-proxy/nginx-proxy
 if [ -n "${VIRTUAL_HOST}" ]; then
-    sed -i "s/server_name _;/server_name ${VIRTUAL_HOST};/" /etc/nginx/conf.d/default.conf
+    sed -i "s/server_name _;/server_name ${VIRTUAL_HOST};/" /etc/nginx/http.d/default.conf
 fi
 
 # Override server port for xdebug frendly on multiple sites debug simultaneously
 if [ -n "${INSIDE_WEB_PORT}" ]; then
-    sed -i "s/listen 80 default_server/listen ${INSIDE_WEB_PORT} default_server/" /etc/nginx/conf.d/default.conf
+    sed -i "s/listen 80 default_server/listen ${INSIDE_WEB_PORT} default_server/" /etc/nginx/http.d/default.conf
 fi
 
 # Override xdebug port for xdebug frendly on the situation: multiple sites be debugged simultaneously
