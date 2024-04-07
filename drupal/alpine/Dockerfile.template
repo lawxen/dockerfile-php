@@ -12,8 +12,7 @@ ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 ADD config/start.sh /start.sh
 
 # install the PHP extensions and other app we need
-RUN apk update; \
-    apk add --no-cache iputils git vim wget mariadb-client nginx bash; \
+RUN apk add --no-cache iputils git vim wget mariadb-client nginx bash; \
     rm -rf /var/cache/apk/*; \
     docker-php-ext-install bcmath; \
     # debian has this
@@ -29,15 +28,16 @@ ADD config/nginx/*.conf /etc/nginx/conf.d/
 
 # clean soft link which break xdebug
 RUN rm -rf /var/www/html; \
-    mv /opt/drupal /var/www/html
-WORKDIR "/var/www/html"
-RUN if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
+    mkdir -p /var/www/html; \
+    if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
+        cd /opt/drupal; \
         composer require drush/drush; \
         composer require drupal/admin_toolbar; \
         composer require drupal/devel; \
         composer clear-cache; \
     else \
-        rm -rf /var/www/html/{,.[^.]}*; \
+        # rm -rf /var/www/html/{,.[^.]}*; \
+        rm -rf /opt/drupal; \
     fi
-
+WORKDIR "/var/www/html"
 CMD ["/start.sh"]

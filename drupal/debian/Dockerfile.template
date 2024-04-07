@@ -29,16 +29,16 @@ ADD config/nginx/*.conf /etc/nginx/conf.d/
 
 # clean soft link which break xdebug
 RUN rm -rf /var/www/html; \
-    mv /opt/drupal /var/www/html
-WORKDIR "/var/www/html"
-RUN if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
-        export COMPOSER_HOME="$(mktemp -d)"; \
+    mkdir -p /var/www/html; \
+    if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
+        cd /opt/drupal; \
         composer require drush/drush; \
         composer require drupal/admin_toolbar; \
         composer require drupal/devel; \
-        rm -rf "$COMPOSER_HOME"; \
+        composer clear-cache; \
     else \
-        rm -rf /var/www/html/{,.[^.]}*; \
+        # rm -rf /var/www/html/{,.[^.]}*; \
+        rm -rf /opt/drupal; \
     fi
-
+WORKDIR "/var/www/html"
 CMD ["/start.sh"]

@@ -16,3 +16,4 @@ docker buildx build -f alpine/Dockerfile.template --platform linux/amd64,linux/a
 
 # This is for local test only
 # docker buildx build --load -f alpine/Dockerfile.template --platform linux/arm64 --build-arg TAG_FROM=php8.3-fpm-alpine -t lawxen/drupal:php8.3-fpm-alpine .
+# docker buildx build --load --no-cache -f alpine/Dockerfile.template --platform linux/arm64 --build-arg TAG_FROM=php8.3-fpm-alpine -t lawxen/drupal:php8.3-fpm-alpine .

@@ -23,6 +23,14 @@ if [ -n "${XDEBUG_CLIENT_PORT}" ]; then
         fi
     fi
 fi
+
+HTMLDIR=/var/www/html
+if [ -d "/opt/drupal" ]; then
+    if [ "`ls -A ${HTMLDIR}`" = "" ]; then
+        mv -f /opt/drupal/* /opt/drupal/.[!.]* /var/www/html/
+    fi
+fi
+
 # service rsyslog start
 # service nginx start
 php-fpm &
