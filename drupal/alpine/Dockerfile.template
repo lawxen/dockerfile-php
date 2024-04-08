@@ -10,7 +10,14 @@ ENV PATH="$PATH:~/.composer/vendor/bin:/var/www/html/vendor/bin:/var/www/html/bi
 ADD config/start.sh /start.sh
 
 # install the PHP extensions and other app we need
-RUN apk add --no-cache iputils git vim wget mariadb-client nginx bash; \
+RUN apk add --no-cache \
+    iputils \
+    git \
+    vim \
+    wget \
+    mariadb-client \
+    nginx \
+    bash; \
     rm -rf /var/cache/apk/*; \
     docker-php-ext-install bcmath; \
     pecl install redis && docker-php-ext-enable redis && pecl clear-cache; \

@@ -11,7 +11,13 @@ ADD config/start.sh /start.sh
 
 # install the PHP extensions and other app we need
 RUN apt-get update; \
-    apt-get install -y iputils-ping git vim wget mariadb-client nginx; \
+    apt-get install -y \
+    iputils-ping \
+    git \
+    vim \
+    wget \
+    mariadb-client \
+    nginx; \
     rm -rf /var/lib/apt/lists/*; \
     docker-php-ext-install bcmath; \
     pecl install redis && docker-php-ext-enable redis && pecl clear-cache; \
