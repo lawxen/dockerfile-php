@@ -29,6 +29,7 @@ if [ -d "/opt/drupal" ]; then
     if [ "`ls -A ${HTMLDIR}`" = "" ]; then
         mv -f /opt/drupal/* /opt/drupal/.[!.]* /var/www/html/
     fi
+    rm -rf /opt/drupal
 fi
 
 # service rsyslog start
