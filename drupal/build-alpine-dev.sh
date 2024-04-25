@@ -6,6 +6,7 @@ docker buildx build -f alpine/Dockerfile-dev.template --platform linux/amd64,lin
 
 # PHP8.1
 docker buildx build -f alpine/Dockerfile-dev.template --platform linux/amd64,linux/arm64 --build-arg TAG_FROM=php8.1-fpm-alpine -t lawxen/drupal:php8.1-fpm-alpine-dev --push .
+docker buildx build -f alpine/Dockerfile-dev.template --platform linux/amd64,linux/arm64 --build-arg TAG_FROM=9-php8.1-fpm-alpine --build-arg KEEP_DRUPAL_FILES=1 -t lawxen/drupal:9-php8.1-fpm-alpine-dev --push .
 
 # PHP8.2
 docker buildx build -f alpine/Dockerfile-dev.template --platform linux/amd64,linux/arm64 --build-arg TAG_FROM=php8.2-fpm-alpine -t lawxen/drupal:php8.2-fpm-alpine-dev --push .
