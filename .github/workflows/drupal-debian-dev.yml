@@ -18,6 +18,8 @@ jobs:
             tag: 'php8.2-fpm-dev'
           - TAG_FROM: 'php8.3-fpm'
             tag: 'php8.3-fpm-dev'
+          - TAG_FROM: '9-php8.1-fpm'
+            tag: '9-php8.1-fpm-dev'
           - TAG_FROM: '10-php8.3-fpm'
             tag: '10-php8.3-fpm-dev'
 
@@ -44,7 +46,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: 'debian/Dockerfile-dev.template'
+          file: 'alpine/Dockerfile-dev.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
