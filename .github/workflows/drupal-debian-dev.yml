@@ -46,7 +46,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: 'alpine/Dockerfile-dev.template'
+          file: 'debian/Dockerfile-dev.template'
           tags: 'lawxen/drupal:${{ matrix.version.tag }}'
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
