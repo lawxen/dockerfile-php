@@ -38,8 +38,7 @@ RUN composer global require drupal/coder; \
     } >> /root/.bashrc
 
 # Install Nodejs and sass
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-
-# RUN /bin/bash -c "source /root/.bashrc"
-RUN /bin/bash -c "source /root/.bashrc && nvm install --lts"
-RUN /bin/bash -c "source /root/.bashrc && npm install -g sass"
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash; \
+    source /root/.bashrc; \
+    nvm install --lts; \
+    npm install -g sass
