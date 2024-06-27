@@ -39,8 +39,8 @@ RUN composer global require drupal/coder; \
 
 # Install Nodejs
 # https://github.com/nvm-sh/nvm/blob/master/Dockerfile
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash; \
-    bash -c 'source $HOME/.nvm/nvm.sh   && \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash;
+RUN bash -c 'source $HOME/.nvm/nvm.sh   && \
     nvm install node                    && \
     npm install -g doctoc urchin eclint dockerfile_lint && \
     npm install --prefix "$HOME/.nvm/"'
