@@ -6,7 +6,9 @@ ARG TAG_FROM
 ########### DEV #############
 # Install xdebug
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
-RUN apk add --no-cache linux-headers autoconf g++ make; \
+RUN apk add --no-cache linux-headers autoconf g++ make \
+    # python3\
+    ; \
     rm -rf /var/cache/apk/*; \
     pecl channel-update pecl.php.net; \
     if [ "${TAG_FROM}" = "php7.4-fpm-alpine" ] ; then \
@@ -14,7 +16,11 @@ RUN apk add --no-cache linux-headers autoconf g++ make; \
     else \
     pecl install xdebug && docker-php-ext-enable xdebug && pear clear-cache; \
     fi; \
-    apk del linux-headers autoconf g++ make
+    # Install Nodejs and sass
+    # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash; \
+    # /bin/bash -c "source /root/.bashrc;nvm install --lts && npm install -g sass && npm install -g sass-convert && nvm cache clear && npm cache clear"; \
+    # Delete no needed packages
+    apk del linux-headers autoconf g++ make python3
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \
@@ -36,6 +42,3 @@ RUN composer global require drupal/coder; \
     echo "alias drupalcsp=\"phpcs --standard=DrupalPractice --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
     echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
     } >> /root/.bashrc
-
-# Install Nodejs and sass
-RUN /bin/bash -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && source /root/.bashrc && nvm install --lts"
