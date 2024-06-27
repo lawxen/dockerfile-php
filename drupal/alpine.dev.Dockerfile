@@ -37,8 +37,10 @@ RUN composer global require drupal/coder; \
     echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
     } >> /root/.bashrc
 
-# Install Nodejs and sass
+# Install Nodejs
+# https://github.com/nvm-sh/nvm/blob/master/Dockerfile
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash; \
-    source /root/.bashrc; \
-    nvm install --lts; \
-    npm install -g sass
+    bash -c 'source $HOME/.nvm/nvm.sh   && \
+    nvm install node                    && \
+    npm install -g doctoc urchin eclint dockerfile_lint && \
+    npm install --prefix "$HOME/.nvm/"'
