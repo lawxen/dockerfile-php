@@ -32,7 +32,7 @@ RUN apk add --no-cache \
         cd /opt/drupal; \
         composer require drush/drush; \
         composer require drupal/admin_toolbar; \
-        composer require drupal/devel; \
+        composer require drupal/devel_php; \
         composer clear-cache; \
         sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/g' /opt/drupal/composer.json; \
     else \
