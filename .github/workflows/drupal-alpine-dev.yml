@@ -22,6 +22,8 @@ jobs:
           #   tag: '9-php8.1-fpm-alpine-dev'
           - TAG_FROM: "10-php8.3-fpm-alpine"
             tag: "10-php8.3-fpm-alpine-dev"
+          - TAG_FROM: "11-php8.3-fpm-alpine"
+            tag: "11-php8.3-fpm-alpine-dev"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
