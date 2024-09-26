@@ -1,12 +1,33 @@
 ARG TAG_FROM
 FROM lawxen/drupal:${TAG_FROM}
 
-# install the PHP extensions and other app we need
-RUN apt-get update; \
-    apt-get install -y \
-    php$(php -r "echo PHP_MAJOR_VERSION .'.'. PHP_MINOR_VERSION;")-zip \
-    unzip \
-    rm -rf /var/lib/apt/lists/*;
+# always run apt update when start and after add new source list, then clean up at end.
+RUN set -xe; \
+    apt-get update -yqq && \
+    pecl channel-update pecl.php.net && \
+    apt-get install -yqq \
+      apt-utils \
+      gnupg2 \
+      #
+      #--------------------------------------------------------------------------
+      # Mandatory Software's Installation
+      #--------------------------------------------------------------------------
+      #
+      # Mandatory Software's such as ("mcrypt", "pdo_mysql", "libssl-dev", ....)
+      # are installed on the base image 'laradock/php-fpm' image. If you want
+      # to add more Software's or remove existing one, you need to edit the
+      # base image (https://github.com/Laradock/php-fpm).
+      #
+      # next lines are here becase there is no auto build on dockerhub see https://github.com/laradock/laradock/pull/1903#issuecomment-463142846
+      libzip-dev zip unzip && \
+      if [ ${LARADOCK_PHP_VERSION} = "7.3" ] || [ ${LARADOCK_PHP_VERSION} = "7.4" ] || [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ]; then \
+        docker-php-ext-configure zip; \
+      else \
+        docker-php-ext-configure zip --with-libzip; \
+      fi && \
+      # Install the zip extension
+      docker-php-ext-install zip && \
+      php -m | grep -q 'zip'
 
 ###########################################################################
 # PHP OCI8:
