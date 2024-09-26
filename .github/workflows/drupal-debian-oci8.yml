@@ -42,7 +42,7 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:drupal"
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           file: "debian.oci8.Dockerfile"
           tags: "lawxen/drupal:${{ matrix.version.tag }}"
           build-args: |
@@ -58,7 +58,7 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:drupal"
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           file: "debian.oci8.Dockerfile"
           tags: "registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}"
           build-args: |
