@@ -1,4 +1,4 @@
-name: drupal-debian-dev
+name: drupal-debian-oci8
 
 on: workflow_dispatch
 
