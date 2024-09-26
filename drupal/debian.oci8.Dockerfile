@@ -2,16 +2,11 @@ ARG TAG_FROM
 FROM lawxen/drupal:${TAG_FROM}
 
 # install the PHP extensions and other app we need
-# next lines are here becase there is no auto build on dockerhub see https://github.com/laradock/laradock/pull/1903#issuecomment-463142846
-RUN libzip-dev zip unzip && \
-    if [ ${LARADOCK_PHP_VERSION} = "7.3" ] || [ ${LARADOCK_PHP_VERSION} = "7.4" ] || [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ]; then \
-      docker-php-ext-configure zip; \
-    else \
-      docker-php-ext-configure zip --with-libzip; \
-    fi && \
-    # Install the zip extension
-    docker-php-ext-install zip && \
-    php -m | grep -q 'zip'
+RUN apt-get update; \
+    apt-get install -y \
+    php$(php -r "echo PHP_MAJOR_VERSION .'.'. PHP_MINOR_VERSION;")-zip \
+    unzip \
+    rm -rf /var/lib/apt/lists/*;
 
 ###########################################################################
 # PHP OCI8:
