@@ -1,6 +1,12 @@
 ARG TAG_FROM
 FROM lawxen/drupal:${TAG_FROM}
 
+# install the PHP extensions and other app we need
+RUN apt-get update; \
+    apt-get install -y \
+    unzip \
+    rm -rf /var/lib/apt/lists/*;
+
 ###########################################################################
 # PHP OCI8:
 ###########################################################################
