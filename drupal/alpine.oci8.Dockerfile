@@ -42,7 +42,8 @@ RUN if [ ${INSTALL_OCI8} = true ]; then \
     # Install PHP extensions deps
     && apk add --no-cache \
       libaio-dev \
-      freetds-dev && \
+      freetds-dev \
+      libnsl && \
     # Install PHP extensions
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
       echo 'instantclient,/opt/oracle/instantclient_${ORACLE_INSTANT_CLIENT_VERSION}/' | pecl install oci8-2.0.12; \
