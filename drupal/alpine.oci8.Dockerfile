@@ -44,7 +44,9 @@ RUN if [ ${INSTALL_OCI8} = true ]; then \
   libaio-dev \
   freetds-dev \
   libnsl && \
-  ln -s /usr/lib/libnsl.so.2 /usr/lib/libnsl.so.1 && \
+  ln -s /usr/lib/libnsl.so.3 /usr/lib/libnsl.so.1 && \
+  ln -s /usr/lib/libnsl.so.3 /usr/lib/libnsl.so.2 && \
+  ln -s /usr/lib/libc.so /usr/lib/libresolv.so.2 && \
   # Install PHP extensions
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
   echo 'instantclient,/opt/oracle/instantclient_${ORACLE_INSTANT_CLIENT_VERSION}/' | pecl install oci8-2.0.12; \
