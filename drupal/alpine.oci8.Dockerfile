@@ -43,7 +43,8 @@ RUN if [ ${INSTALL_OCI8} = true ]; then \
   && apk add --no-cache \
   libaio-dev \
   freetds-dev \
-  libnsl && \
+  libnsl \
+  libc6-compat && \
   ln -s /usr/lib/libnsl.so.3 /usr/lib/libnsl.so.1 && \
   ln -s /usr/lib/libnsl.so.3 /usr/lib/libnsl.so.2 && \
   ln -s /usr/lib/libc.so /usr/lib/libresolv.so.2 && \
