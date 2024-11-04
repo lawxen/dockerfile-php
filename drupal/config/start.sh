@@ -28,6 +28,7 @@ HTMLDIR=/var/www/html
 if [ -d "/opt/drupal" ]; then
     if [ "`ls -A ${HTMLDIR}`" = "" ]; then
         mv -f /opt/drupal/* /opt/drupal/.[!.]* /var/www/html/
+        echo "move drupal from /opt/drupal to /var/www/html completely"
     fi
     rm -rf /opt/drupal
 fi
