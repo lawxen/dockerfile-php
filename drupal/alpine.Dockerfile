@@ -30,7 +30,11 @@ RUN apk add --no-cache \
     mkdir -p /var/www/html; \
     if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
         cd /opt/drupal; \
-        composer require drush/drush drupal/admin_toolbar drupal/devel_php; \
+        if [ "${TAG_FROM}" = "8.9.20-php7.4-fpm-alpine" ] ; then \
+            composer require drush/drush:^10 drupal/admin_toolbar drupal/devel_php; \
+        else \
+            composer require drush/drush drupal/admin_toolbar drupal/devel_php; \
+        fi; \
         sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/g' /opt/drupal/composer.json; \
     else \
         # rm -rf /var/www/html/{,.[^.]}*; \
