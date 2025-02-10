@@ -1,4 +1,4 @@
-name: drupal-alpine-dev
+name: php74-alpine-dev
 
 on: workflow_dispatch
 

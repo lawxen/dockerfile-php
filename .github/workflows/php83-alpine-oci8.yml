@@ -1,4 +1,4 @@
-name: drupal-alpine-oci8
+name: php83-alpine-oci8
 
 on: workflow_dispatch
 
