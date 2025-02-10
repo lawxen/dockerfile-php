@@ -10,7 +10,7 @@ jobs:
         version:
           - TAG_FROM: "php7.4-fpm-alpine"
             tag: "php7.4-fpm-alpine"
-          - TAG_FROM: '8.9-php7.4-fpm-alpine'
+          - TAG_FROM: '8.9.20-php7.4-fpm-alpine'
             KEEP_DRUPAL_FILES: 1
             tag: '8-php7.4-fpm-alpine'
 

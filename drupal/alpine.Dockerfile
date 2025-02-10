@@ -30,10 +30,7 @@ RUN apk add --no-cache \
     mkdir -p /var/www/html; \
     if [ "${KEEP_DRUPAL_FILES}" = "1" ] ; then \
         cd /opt/drupal; \
-        composer require drush/drush; \
-        composer require drupal/admin_toolbar; \
-        composer require drupal/devel_php; \
-        composer clear-cache; \
+        composer require drush/drush drupal/admin_toolbar drupal/devel_php; \
         sed -i 's/"minimum-stability": "stable"/"minimum-stability": "dev"/g' /opt/drupal/composer.json; \
     else \
         # rm -rf /var/www/html/{,.[^.]}*; \
