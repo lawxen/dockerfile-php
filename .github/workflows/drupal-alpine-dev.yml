@@ -18,6 +18,8 @@ jobs:
             tag: "php8.2-fpm-alpine-dev"
           - TAG_FROM: "php8.3-fpm-alpine"
             tag: "php8.3-fpm-alpine-dev"
+          - TAG_FROM: "8-php7.4-fpm-alpine"
+            tag: "8-php7.4-fpm-alpine-dev"
           # - TAG_FROM: '9-php8.1-fpm-alpine'
           #   tag: '9-php8.1-fpm-alpine-dev'
           - TAG_FROM: "10-php8.3-fpm-alpine"
