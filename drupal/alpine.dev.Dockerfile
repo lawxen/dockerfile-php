@@ -11,10 +11,9 @@ RUN apk add --no-cache \
     autoconf \
     g++ \
     make \
-    # Php7.4 needs this
-    $PHPIZE_DEPS \
     # python3\
     ; \
+    apk add --no-cache $PHPIZE_DEPS; \
     rm -rf /var/cache/apk/*; \
     pecl channel-update pecl.php.net; \
     if [[ "${TAG_FROM}" == *"p7.4"* ]] ; then \
