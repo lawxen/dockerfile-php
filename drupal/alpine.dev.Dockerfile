@@ -17,7 +17,7 @@ RUN apk add --no-cache \
     ; \
     rm -rf /var/cache/apk/*; \
     pecl channel-update pecl.php.net; \
-    if [ "${TAG_FROM}" = "php7.4-fpm-alpine" ] ; then \
+    if [[ "${TAG_FROM}" == *"p7.4"* ]] ; then \
     pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug && pear clear-cache; \
     else \
     pecl install xdebug && docker-php-ext-enable xdebug && pear clear-cache; \
