@@ -11,6 +11,8 @@ RUN apk add --no-cache \
     autoconf \
     g++ \
     make \
+    # Php7.4 needs this
+    $PHPIZE_DEPS \
     # python3\
     ; \
     rm -rf /var/cache/apk/*; \
