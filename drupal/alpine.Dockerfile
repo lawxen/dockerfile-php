@@ -18,7 +18,8 @@ RUN apk add --no-cache \
     wget \
     mariadb-client \
     nginx \
-    bash; \
+    bash \
+    autoconf; \
     rm -rf /var/cache/apk/*; \
     echo 'PS1="\u@$(hostname):\w$ "' >> ~/.bashrc; \
     docker-php-ext-install bcmath; \
