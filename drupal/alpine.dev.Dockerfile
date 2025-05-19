@@ -6,16 +6,7 @@ ARG TAG_FROM
 ########### DEV #############
 # Install xdebug
 # https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
-RUN apk add --no-cache \
-    linux-headers \
-    autoconf \
-    g++ \
-    make \
-    # python3\
-    ; \
-    apk add --no-cache $PHPIZE_DEPS; \
-    rm -rf /var/cache/apk/*; \
-    pecl channel-update pecl.php.net; \
+RUN pecl channel-update pecl.php.net; \
     if [[ "${TAG_FROM}" == *"p7.4"* ]] ; then \
     pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug && pear clear-cache; \
     else \
