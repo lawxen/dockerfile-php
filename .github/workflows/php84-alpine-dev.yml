@@ -1,4 +1,4 @@
-name: php83-alpine-dev
+name: php84-alpine-dev
 
 on: workflow_dispatch
 
