@@ -8,14 +8,11 @@ jobs:
     strategy:
       matrix:
         version:
-          - TAG_FROM: "php8.3-fpm-alpine"
+          - TAG_FROM: "php8.4-fpm-alpine"
             tag: "php8.3-fpm-alpine"
-          - TAG_FROM: "10-php8.3-fpm-alpine"
+          - TAG_FROM: "11-php8.4-fpm-alpine"
             KEEP_DRUPAL_FILES: 1
-            tag: "10-php8.3-fpm-alpine"
-          - TAG_FROM: "11-php8.3-fpm-alpine"
-            KEEP_DRUPAL_FILES: 1
-            tag: "11-php8.3-fpm-alpine"
+            tag: "11-php8.4-fpm-alpine"
 
     steps:
       - name: Checkout

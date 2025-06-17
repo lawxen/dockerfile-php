@@ -1,4 +1,4 @@
-name: php83-alpine
+name: php83-alpine-dev
 
 on: workflow_dispatch
 
@@ -8,14 +8,10 @@ jobs:
     strategy:
       matrix:
         version:
-          - TAG_FROM: "php8.3-fpm-alpine"
-            tag: "php8.3-fpm-alpine"
-          - TAG_FROM: "10-php8.3-fpm-alpine"
-            KEEP_DRUPAL_FILES: 1
-            tag: "10-php8.3-fpm-alpine"
-          - TAG_FROM: "11-php8.3-fpm-alpine"
-            KEEP_DRUPAL_FILES: 1
-            tag: "11-php8.3-fpm-alpine"
+          - TAG_FROM: "php8.4-fpm-alpine"
+            tag: "php8.4-fpm-alpine-dev"
+          - TAG_FROM: "11-php8.4-fpm-alpine"
+            tag: "11-php8.4-fpm-alpine-dev"
 
     steps:
       - name: Checkout
@@ -35,11 +31,10 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "alpine.Dockerfile"
+          file: "alpine.dev.Dockerfile"
           tags: "lawxen/drupal:${{ matrix.version.tag }}"
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
-            KEEP_DRUPAL_FILES=${{ matrix.version.KEEP_DRUPAL_FILES }}
       - name: Login to aliyun
         uses: docker/login-action@v3
         with:
