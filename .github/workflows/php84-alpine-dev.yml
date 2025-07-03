@@ -10,6 +10,8 @@ jobs:
         version:
           - TAG_FROM: "php8.4-fpm-alpine"
             tag: "php8.4-fpm-alpine-dev"
+          - TAG_FROM: "10-php8.4-fpm-alpine"
+            tag: "10-php8.4-fpm-alpine-dev"
           - TAG_FROM: "11-php8.4-fpm-alpine"
             tag: "11-php8.4-fpm-alpine-dev"
 
