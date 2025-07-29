@@ -16,12 +16,12 @@ RUN pecl channel-update pecl.php.net; \
     # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash; \
     # /bin/bash -c "source /root/.bashrc;nvm install --lts && npm install -g sass && npm install -g sass-convert && nvm cache clear && npm cache clear"; \
     # Delete no needed packages
-    apk del \
-    linux-headers \
-    autoconf g++ \
-    make \
-    # python3 \
-    ;
+    # apk del \
+    # linux-headers \
+    # autoconf g++ \
+    # make \
+    # # python3 \
+    # ;
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \
