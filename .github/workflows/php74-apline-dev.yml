@@ -36,8 +36,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "alpine.Dockerfile"
+          file: "alpine.dev.Dockerfile"
           tags: lawxen/drupal:${{ matrix.version.tag }},registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
-            KEEP_DRUPAL_FILES=${{ matrix.version.KEEP_DRUPAL_FILES }}
