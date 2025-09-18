@@ -10,9 +10,6 @@ jobs:
         version:
           - TAG_FROM: "php7.4-fpm"
             tag: "php7.4-fpm-debian"
-          - TAG_FROM: '8.9.20-php7.4-fpm'
-            KEEP_DRUPAL_FILES: 1
-            tag: '8-php7.4-fpm'
 
     steps:
       - name: Checkout
