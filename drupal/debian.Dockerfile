@@ -12,6 +12,7 @@ ADD config/start.sh /start.sh
 # install the PHP extensions and other app we need
 RUN apt-get update; \
     apt-get install -y \
+    sudo \
     iputils-ping \
     git \
     vim \
