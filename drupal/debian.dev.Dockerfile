@@ -2,12 +2,16 @@ ARG TAG_FROM
 FROM lawxen/drupal:${TAG_FROM}
 
 ARG TAG_FROM
+
+########### DEV #############
+# Install xdebug
+# https://github.com/nvm-sh/nvm?tab=readme-ov-file#alpine-linux-313
 RUN pecl channel-update pecl.php.net; \
-    if [ "${TAG_FROM}" = "php7.4-fpm" ] ; then \
-        pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug && pear clear-cache; \
+    if [[ "${TAG_FROM}" == *"p7.4"* ]] ; then \
+    pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug && pear clear-cache; \
     else \
-        pecl install xdebug && docker-php-ext-enable xdebug && pear clear-cache; \
-    fi
+    pecl install xdebug && docker-php-ext-enable xdebug && pear clear-cache; \
+    fi; \
 
 # Preemptively creates log files, and give them to www-data
 RUN cd /var/log \
@@ -23,9 +27,9 @@ RUN cd /var/log \
 
 # Install drupal coder and config it
 RUN composer global require drupal/coder; \
-  composer clear-cache; \
-  { \
-  echo "alias drupalcs=\"phpcs --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
-  echo "alias drupalcsp=\"phpcs --standard=DrupalPractice --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
-  echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
-  } >> /root/.bashrc
+    composer clear-cache; \
+    { \
+    echo "alias drupalcs=\"phpcs --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
+    echo "alias drupalcsp=\"phpcs --standard=DrupalPractice --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
+    echo "alias drupalcbf=\"phpcbf --standard=Drupal --extensions=\"php,module,inc,install,test,profile,theme,css,info,txt,md,yml\"\""; \
+    } >> /root/.bashrc
