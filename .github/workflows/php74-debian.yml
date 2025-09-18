@@ -1,4 +1,4 @@
-name: php74-alpine
+name: php74-debian
 
 on: workflow_dispatch
 
@@ -38,7 +38,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "alpine.Dockerfile"
+          file: "debian.Dockerfile"
           tags: lawxen/drupal:${{ matrix.version.tag }},registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
