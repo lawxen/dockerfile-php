@@ -22,7 +22,8 @@ RUN apk add --no-cache \
     linux-headers \
     autoconf \
     g++ \
-    make; \
+    make \
+    sudo; \
     apk add --no-cache $PHPIZE_DEPS; \
     rm -rf /var/cache/apk/*; \
     echo 'PS1="\u@$(hostname):\w$ "' >> ~/.bashrc; \
