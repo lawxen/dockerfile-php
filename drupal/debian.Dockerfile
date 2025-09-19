@@ -42,6 +42,14 @@ RUN apt-get update; \
         rm -rf /opt/drupal; \
     fi
 
+# Install rsyslog.
+RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise main universe" >> /etc/apt/source.list
+RUN apt-get update
+RUN apt-get -y install rsyslog
+RUN { \
+  echo 'local0.* /var/log/drupal.log'; \
+  } >> /etc/rsyslog.conf
+
 ADD config/php-config.ini /usr/local/etc/php/conf.d/php-config.ini
 ADD config/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 ADD config/nginx/*.conf /etc/nginx/http.d/
