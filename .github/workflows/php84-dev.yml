@@ -1,4 +1,4 @@
-name: php84-debian
+name: php84-debian-dev
 
 on: workflow_dispatch
 
@@ -8,11 +8,10 @@ jobs:
     strategy:
       matrix:
         version:
-          - TAG_FROM: "php8.4-fpm"
-            tag: "php8.4-fpm"
-          - TAG_FROM: "11-php8.4-fpm"
-            KEEP_DRUPAL_FILES: 1
-            tag: "11-php8.4-fpm"
+          - TAG_FROM: "php8.4"
+            tag: "php8.4-dev"
+          - TAG_FROM: "11-php8.4"
+            tag: "11-php8.4-dev"
 
     steps:
       - name: Checkout
@@ -38,8 +37,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "debian.Dockerfile"
+          file: "debian.dev.Dockerfile"
           tags: lawxen/drupal:${{ matrix.version.tag }},registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
-            KEEP_DRUPAL_FILES=${{ matrix.version.KEEP_DRUPAL_FILES }}
