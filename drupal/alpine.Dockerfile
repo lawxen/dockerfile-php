@@ -30,6 +30,8 @@ RUN apk add --no-cache \
     docker-php-ext-install bcmath; \
     pecl channel-update pecl.php.net; \
     pecl install redis && docker-php-ext-enable redis && pecl clear-cache; \
+    pecl install exif && docker-php-ext-enable exif && pecl clear-cache; \
+    pecl install geos && docker-php-ext-enable geos && pecl clear-cache; \
     sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf; \
     chmod 755 /start.sh; \
     # clean soft link which break xdebug
