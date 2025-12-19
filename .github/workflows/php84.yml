@@ -1,4 +1,4 @@
-name: php84-debian
+name: php84
 
 on: workflow_dispatch
 
