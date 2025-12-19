@@ -8,10 +8,10 @@ jobs:
     strategy:
       matrix:
         version:
-          - TAG_FROM: "php8.4-fpm"
-            tag: "php8.4-fpm-farmos"
-          - TAG_FROM: "php8.4-fpm-dev"
-            tag: "php8.4-fpm-farmos-dev"
+          - TAG_FROM: "php8.4"
+            tag: "php8.4-farmos"
+          - TAG_FROM: "php8.4-dev"
+            tag: "php8.4-farmos-dev"
 
     steps:
       - name: Checkout
