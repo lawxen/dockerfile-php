@@ -19,3 +19,10 @@ RUN apt-get update && apt-get install -y libgeos-dev \
 # Install the and Exif PHP extensions.
 RUN docker-php-ext-install exif
 RUN docker-php-ext-enable exif geos
+
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install libgeos-c1t64 so geos php extension can use libgeos_c.so.1.
+    libgeos-c1t64 \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean

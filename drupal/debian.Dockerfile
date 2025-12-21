@@ -14,12 +14,14 @@ RUN apt-get update; \
     apt-get install -y \
     sudo \
     iputils-ping \
-    git \
+    git unzip \
     vim \
     wget \
     mariadb-client \
-    nginx; \
-    rm -rf /var/lib/apt/lists/*; \
+    postgresql-client \
+    nginx \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean; \
     echo 'PS1="\u@$(hostname):\w$ "' >> ~/.bashrc; \
     docker-php-ext-install bcmath; \
     pecl install redis && docker-php-ext-enable redis && pecl clear-cache; \

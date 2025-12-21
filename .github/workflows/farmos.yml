@@ -37,7 +37,7 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "projects/farmos/alpine.farmos.Dockerfile"
+          file: "projects/farmos/farmos.Dockerfile"
           tags: lawxen/drupal:${{ matrix.version.tag }},registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
