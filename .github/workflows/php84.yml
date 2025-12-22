@@ -1,4 +1,4 @@
-name: php84
+name: php8.4
 
 on: workflow_dispatch
 

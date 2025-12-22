@@ -13,10 +13,11 @@ ADD config/start.sh /start.sh
 RUN apk add --no-cache \
     patch \
     iputils \
-    git \
+    git unzip \
     vim \
     wget \
     mariadb-client \
+    postgresql-client \
     nginx \
     bash \
     linux-headers \

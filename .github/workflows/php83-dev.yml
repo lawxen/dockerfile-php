@@ -1,4 +1,4 @@
-name: php8.4-dev
+name: php8.3-dev
 
 on: workflow_dispatch
 
@@ -8,10 +8,8 @@ jobs:
     strategy:
       matrix:
         version:
-          - TAG_FROM: "php8.4"
-            tag: "php8.4-dev"
-          - TAG_FROM: "11-php8.4"
-            tag: "11-php8.4-dev"
+          - TAG_FROM: "php8.3"
+            tag: "php8.3-dev"
 
     steps:
       - name: Checkout
