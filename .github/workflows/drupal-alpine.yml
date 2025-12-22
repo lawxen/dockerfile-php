@@ -1,4 +1,4 @@
-name: php81-alpine-dev
+name: Drupal Alpine
 
 on: workflow_dispatch
 
@@ -8,10 +8,23 @@ jobs:
     strategy:
       matrix:
         version:
+          - TAG_FROM: "php7.4-fpm-alpine"
+            tag: "php7.4-alpine"
           - TAG_FROM: "php8.1-fpm-alpine"
-            tag: "php8.1-fpm-alpine-dev"
-          - TAG_FROM: '9-php8.1-fpm-alpine'
-            tag: '9-php8.1-fpm-alpine-dev'
+            tag: "php8.1-alpine"
+          - TAG_FROM: "php8.2-fpm-alpine"
+            tag: "php8.2-alpine"
+          - TAG_FROM: "php8.3-fpm-alpine"
+            tag: "php8.3-alpine"
+          - TAG_FROM: "10-php8.3-fpm-alpine"
+            KEEP_DRUPAL_FILES: 1
+            tag: "10-php8.3-alpine"
+          - TAG_FROM: "php8.4-fpm-alpine"
+            tag: "php8.4-alpine"
+          - TAG_FROM: "11-php8.4-fpm-alpine"
+            KEEP_DRUPAL_FILES: 1
+            tag: "11-php8.4-alpine"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +49,8 @@ jobs:
           push: true
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "alpine.dev.Dockerfile"
+          file: "alpine.Dockerfile"
           tags: lawxen/drupal:${{ matrix.version.tag }},registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
+            KEEP_DRUPAL_FILES=${{ matrix.version.KEEP_DRUPAL_FILES }}

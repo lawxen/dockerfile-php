@@ -1,4 +1,4 @@
-name: php83-alpine-dev
+name: Drupal Alpine Dev
 
 on: workflow_dispatch
 
@@ -8,12 +8,22 @@ jobs:
     strategy:
       matrix:
         version:
-          - TAG_FROM: "php8.3-fpm-alpine"
-            tag: "php8.3-fpm-alpine-dev"
-          - TAG_FROM: "10-php8.3-fpm-alpine"
-            tag: "10-php8.3-fpm-alpine-dev"
-          - TAG_FROM: "11-php8.3-fpm-alpine"
-            tag: "11-php8.3-fpm-alpine-dev"
+          - TAG_FROM: "php7.4-alpine"
+            tag: "php7.4-alpine-dev"
+          - TAG_FROM: "php8.1-alpine"
+            tag: "php8.1-alpine-dev"
+          - TAG_FROM: "php8.2-alpine"
+            tag: "php8.2-alpine-dev"
+          - TAG_FROM: "php8.3-alpine"
+            tag: "php8.3-alpine-dev"
+          - TAG_FROM: "10-php8.3-alpine"
+            KEEP_DRUPAL_FILES: 1
+            tag: "10-php8.3-alpine-dev"
+          - TAG_FROM: "php8.4-alpine"
+            tag: "php8.4-alpine-dev"
+          - TAG_FROM: "11-php8.4-alpine"
+            KEEP_DRUPAL_FILES: 1
+            tag: "11-php8.4-alpine-dev"
 
     steps:
       - name: Checkout
