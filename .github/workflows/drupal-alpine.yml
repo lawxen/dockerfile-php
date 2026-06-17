@@ -21,9 +21,11 @@ jobs:
             tag: "10-php8.3-alpine"
           - TAG_FROM: "php8.4-fpm-alpine"
             tag: "php8.4-alpine"
-          - TAG_FROM: "11-php8.4-fpm-alpine"
+          - TAG_FROM: "php8.5-fpm-alpine"
+            tag: "php8.5-alpine"
+          - TAG_FROM: "11-php8.5-fpm-alpine"
             KEEP_DRUPAL_FILES: 1
-            tag: "11-php8.4-alpine"
+            tag: "11-php8.5-alpine"
 
     steps:
       - name: Checkout
