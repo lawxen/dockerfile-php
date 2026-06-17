@@ -20,6 +20,8 @@ RUN apt-get update; \
     mariadb-client \
     postgresql-client \
     nginx \
+    && update-ca-certificates \
+    && git config --global http.sslVerify false \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean; \
     echo 'PS1="\u@$(hostname):\w$ "' >> ~/.bashrc; \

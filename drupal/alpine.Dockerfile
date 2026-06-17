@@ -25,6 +25,8 @@ RUN apk add --no-cache \
     g++ \
     make \
     sudo; \
+    update-ca-certificates; \
+    git config --global http.sslVerify false; \
     apk add --no-cache $PHPIZE_DEPS; \
     rm -rf /var/cache/apk/*; \
     echo 'PS1="\u@$(hostname):\w$ "' >> ~/.bashrc; \
