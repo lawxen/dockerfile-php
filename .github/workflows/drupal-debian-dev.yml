@@ -21,9 +21,11 @@ jobs:
             tag: "10-php8.3-dev"
           - TAG_FROM: "php8.4"
             tag: "php8.4-dev"
-          - TAG_FROM: "11-php8.4"
+          - TAG_FROM: "php8.5"
+            tag: "php8.5-dev"
+          - TAG_FROM: "11-php8.5"
             KEEP_DRUPAL_FILES: 1
-            tag: "11-php8.4-dev"
+            tag: "11-php8.5-dev"
 
     steps:
       - name: Checkout
