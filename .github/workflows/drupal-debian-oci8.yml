@@ -1,4 +1,4 @@
-name: Drupal Debian OCI8
+name: Drupal Debian Oci8
 
 on: workflow_dispatch
 
@@ -38,7 +38,7 @@ jobs:
           provenance: false
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
-          file: "debian.Dockerfile"
+          file: "debian.oci8.Dockerfile"
           tags: lawxen/drupal:${{ matrix.version.tag }},registry.cn-hangzhou.aliyuncs.com/lawxen/drupal:${{ matrix.version.tag }}
           build-args: |
             TAG_FROM=${{ matrix.version.TAG_FROM }}
