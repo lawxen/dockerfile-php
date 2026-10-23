@@ -14,14 +14,11 @@ jobs:
             tag: "php8.1"
           - TAG_FROM: "php8.2-fpm"
             tag: "php8.2"
-          - TAG_FROM: "php8.3-fpm"
-            tag: "php8.3"
           - TAG_FROM: "10-php8.3-fpm"
-            KEEP_DRUPAL_FILES: 1
-            tag: "10-php8.3"
-          - TAG_FROM: "php8.4-fpm"
+            tag: "php8.3"
+          - TAG_FROM: "11-php8.4-fpm"
             tag: "php8.4"
-          - TAG_FROM: "php8.5-fpm"
+          - TAG_FROM: "11-php8.5-fpm"
             tag: "php8.5"
           - TAG_FROM: "11-php8.5-fpm"
             KEEP_DRUPAL_FILES: 1
