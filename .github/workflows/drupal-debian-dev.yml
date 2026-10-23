@@ -49,6 +49,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
+          # 阿里云 ACR 不支持 buildx 默认附带的 provenance 证明
+          # （application/vnd.oci.empty.v1+json），会导致 push 被拒
+          provenance: false
           context: "{{defaultContext}}:drupal"
           platforms: linux/amd64,linux/arm64
           file: "debian.dev.Dockerfile"
