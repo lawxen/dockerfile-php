@@ -30,11 +30,25 @@ RUN apk add --no-cache \
     apk add --no-cache $PHPIZE_DEPS; \
     rm -rf /var/cache/apk/*; \
     echo 'PS1="\u@$(hostname):\w$ "' >> ~/.bashrc; \
-    docker-php-ext-install bcmath; \
+    docker-php-ext-install -j"$(nproc)" bcmath exif; \
     pecl channel-update pecl.php.net; \
     pecl install redis && docker-php-ext-enable redis && pecl clear-cache; \
-    pecl install exif && docker-php-ext-enable exif && pecl clear-cache; \
-    pecl install geos && docker-php-ext-enable geos && pecl clear-cache; \
+    # geos 已从 PECL 下架，改从官方源码编译；固定 commit 保证可复现
+    apk add --no-cache geos geos-dev; \
+    ( set -e; \
+      cd /tmp; \
+      wget -q -O php-geos.tar.gz https://github.com/libgeos/php-geos/archive/1a1c6a95697359892886a2050570007754ce575e.tar.gz; \
+      tar -xzf php-geos.tar.gz; \
+      cd php-geos-1a1c6a95697359892886a2050570007754ce575e; \
+      phpize; \
+      ./configure --enable-geos; \
+      make -j"$(nproc)"; \
+      make install; \
+      docker-php-ext-enable geos; \
+    ) || exit 1; \
+    rm -rf /tmp/php-geos-* /tmp/php-geos.tar.gz; \
+    apk del geos-dev; \
+    rm -rf /var/cache/apk/*; \
     sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf; \
     chmod 755 /start.sh; \
     # clean soft link which break xdebug
