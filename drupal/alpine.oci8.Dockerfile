@@ -1,4 +1,4 @@
-ARG TAG_FROM=php8.3-fpm-alpine
+ARG TAG_FROM
 FROM lawxen/drupal:${TAG_FROM}
 
 RUN apk add --no-cache \
